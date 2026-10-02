@@ -6,9 +6,11 @@
 
 ## 结论先说
 
-官网当前规则已经切到 v4 任务卡叙述，但本地 `gosim-agentic-observer` **还没有实现 v4**。它仍是公开 v3 练习模拟器，核心代码使用 `challenge-score-v3`、`tile_id`/`region_id`/`request_id`、预排合法候选以及 v3 的 `observe`/`wait` 行为。
+截至 2026-10-02，`observer-practice-app` 已加入与 v3 练习主线隔离的本地 v4 contract harness，并有 `compileall`、v4 regression test 和 deterministic smoke 证据。它不是完整 official parity：`gamma`/`delta` 的 `stress`/`earthquake`/`state_resync`、官方 exact `skymath` 几何、lunar scorer、公开资源的 fiber 数量冲突和 hidden truth 仍待核对。
 
-本次曾把讲座启发式接入默认 v3 Agent，得到了一组更高的公开场景分数；这只是策略实验，不是 v4 迁移，也不能证明模拟器更接近官方。该代码已经撤回，模拟器恢复到原来的 v3 代码线。
+本地 harness 使用独立的 v4 协议、几何、评分、工作流、demo fixture 和最小 Agent；`observer.project.json` 及公开 v3 练习入口没有切换。讲座启发式曾短暂接入默认 v3 Agent，得到的公开场景分数只是策略实验；该代码已经撤回。讲座收获保留为研发参考，不写入 v3 模拟器，v3 主线未改变。
+
+当前本地证据包括 v4 模块的 `compileall`、`tests/test_v4_regression.py` 回归测试，以及 `scripts/smoke_v4.py` 对 `scenarios/v4-demo` 的 deterministic smoke；smoke 产物记录了正常结束、5 个动作、4 个目标和已完成的 demo request。这些证据只覆盖本地 fixture 的契约回归，不等于官方卡、官方 scorer、云端运行或正式/隐藏成绩。
 
 ## 已核对的 v4 规则边界
 
@@ -17,23 +19,29 @@
 - 练习卡为 α、β、γ、δ；线上比赛卡为 A、B、C、D；赛后隐藏卡为 E、F、G、H。
 - v4 动作包括 `observe`、`wait`、`report`、`finish`。
 - `observe` 同时涉及天空指向、逐根光纤的目标分配、60–3600 秒曝光和 `DARK`/`BRIGHT`/`BACKUP` 程序。
-- 光纤布局和数量以每张卡的配置为准，并在 `initialize` 中下发；当前规则页面列出的练习卡光纤数量为 16、25、9、100。
+- 光纤布局和数量以每张卡的配置及 `initialize` 实际 payload 为准；公开资源存在 fiber 数量冲突，页面列出的数量与本地 fixture 都不能直接当作最终真值，仍待核对。
 - 目标只有在落入被分配光纤的 cell、且整个曝光期间高度角不低于 30° 时才计分；评分还涉及亮度、曝光、sky quality、science weight 和程序加成。
 - v4 线上每次评测运行 A–D 四张卡，每张卡 900 秒；线上结束后，主办方在 E–H 上对最终版本各评测一次，最终成绩取四张隐藏卡成绩的算术平均。
 - 规则页面明确区分 v3 练习 CSV 与 v4 任务卡；v3 练习场景不能作为 v4 兼容性证明。
 
-这些是规则页面层面的迁移输入；v4 starter/card 的具体文件哈希、完整 JSON schema、异常语义和平台运行细节，在本地正式实现前仍需从资源页下载并逐项核对。
+这些是规则页面层面的迁移输入；v4 starter/card 的具体文件哈希、完整 JSON schema、异常语义、平台运行细节、官方 exact `skymath` 几何、lunar scorer 以及 `gamma`/`delta` 的 `stress`/`earthquake`/`state_resync`，仍需从资源页和实际接口逐项核对；hidden truth 当前不可得。
 
 ## v3 与 v4 的差异
 
 | 方面 | 当前本地模拟器 | v4 目标实现 |
 |---|---|---|
-| 场景 | `dev-fortnight`、`dev-reference` 公开 v3 | α–δ 练习卡，之后 A–D/E–H |
-| 协议 | v3 snapshot、预排 tile candidate | `initialize` 下发 fiber config、target/catalog 和 v4 合约 |
+| 场景 | `dev-fortnight`、`dev-reference` 公开 v3；另有隔离的本地 v4 demo fixture | α–δ 练习卡，之后 A–D/E–H |
+| 协议 | v3 snapshot、预排 tile candidate；v4 harness 独立处理 v4 contract | `initialize` 下发 fiber config、target/catalog 和 v4 合约 |
 | 观测动作 | 选择现成 `tile_id`/`program`/`request_id` | 指向、逐 fiber 分配目标、曝光秒数、程序联合决策 |
 | 动作集合 | 主要是 `observe`、`wait` | `observe`、`wait`、`report`、`finish` |
 | 评分 | 本地 `challenge-score-v3` | v4 target/fiber/cell/sky/exposure/program/coverage 等规则 |
-| 证据 | 可本地复现公开输入 | 需要 v4 starter/card 和平台实际 payload 复核 |
+| 证据 | v3 可本地复现；v4 有 compile/test/smoke 的 fixture 证据 | 仍需 v4 starter/card、平台实际 payload、官方 geometry/scorer 和 hidden truth 复核 |
+
+## 当前 v4 证据边界
+
+- v4 harness 是 `observer-practice-app` 内与 v3 入口隔离的本地 contract regression 入口；它不改变 `observer.project.json`、v3 协议或 v3 scorer。
+- 本地 `v4-demo` fixture 证明协议、动作、fiber cell、30° 高度角、曝光边界、评分流程和结束流程可以在本地回归；它不是官方 α–δ、A–D 或 E–H 任务卡。
+- `gamma`/`delta` 的 `stress`/`earthquake`/`state_resync`、官方 exact `skymath` 几何、lunar scorer、公开资源 fiber 数量冲突和 hidden truth 均属于待核对项；因此当前结论是“有隔离 harness 和本地证据”，不是“完成 official parity”。
 
 ## 讲座留下的可迁移认识
 
@@ -60,8 +68,8 @@
 
 1. 从官网资源页取得 v4 starter/card，记录下载日期、文件哈希和目录结构。
 2. 只读重建 v4 `initialize`、decision request、response、`finish` grace period 和错误语义。
-3. 在独立的 v4 模块或分支实现协议、fiber geometry、target legality、时间推进和 scorer；不修改 v3 回归线。
-4. 用最小 fixture 覆盖 cell 合法性、30° 高度角、曝光边界、程序加成、重复目标、`report`、`finish` 和异常输入。
+3. 保留现有隔离的 v4 contract harness 作为本地回归入口；待官方 starter/card 和实际 payload 核对后，再补齐协议、fiber geometry、target legality、时间推进和 scorer；不修改 v3 回归线。
+4. 现有最小 fixture 已覆盖 cell 合法性、30° 高度角、曝光边界、程序加成、重复目标、`report`、`finish` 和异常输入；仍需用官方卡补做 parity 核对。
 5. 先让确定性 v4 baseline 与官方公开卡逐项对齐，再把讲座认识作为可替换策略层。
 6. 分别报告 simulator parity、baseline score、策略实验 score 和正式/隐藏未知项，不把它们混为一类。
 
