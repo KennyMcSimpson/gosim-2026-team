@@ -26,14 +26,13 @@
 4. 调度特征优先加入目标类别/亮度、airmass/高度角、seeing、透明度、月光/天光背景、曝光收益、overhead、required/request 和覆盖均匀性。
 5. 在真实 key 或云端评测前先完成登录态 Participate prepare/interface check；正式和隐藏结果在验证前不要写进宣传或 README。
 
-## 模拟器当前进展（2026-10-02）
+## 回滚与 v4 迁移结论（2026-10-02）
 
-应用仓库已把讲座中的可验证调度启发式落到公开 v3 selector：在不改变官方 scorer 和 JSONL 协议的前提下，确定性排序会把指向/读出 overhead、目标类别与天气质量匹配、高度角、airmass 和窗口余量纳入规划；它仍不会生成 v4 光纤动作。
+本次讲座启发式曾短暂接入模拟器默认 v3 Agent，用于验证“策略实验”和“官方模拟器复现”不是一回事；该代码已撤回。模拟器当前仍按公开 v3 代码线运行，不把讲座启发式分数当作官方回归基线，也没有声称已经实现 v4。
 
-- `dev-fortnight` 本机完整运行：`survey_complete`，593 个动作，总分 `6526.194418`。
-- `dev-reference` 本机完整运行：`survey_complete`，7943 个动作，总分 `12298.666905`。
-- 单元测试 4 项与 `compileall` 通过；上述结果只是仓库内公开 v3 回归证据，不代表正式 A–D 或隐藏 E–H 成绩。
-- 对应实现和回归脚本在[模拟器仓库](https://github.com/KennyMcSimpson/gosim-agentic-observer)；团队仓库继续只保存去敏摘要和协作信息，不复制安装包、密钥或私人实验数据。
+- 官方 v4 任务卡、动作和评分边界见[迁移检查点](V4_MIGRATION_CHECKPOINT_2026-10-02.md)。
+- 讲座收获应作为后续 v4 策略设计输入，不能直接改写 v3 simulator 的协议、snapshot 或 scorer。
+- 正式开发顺序应是：先拿到并核对 v4 starter/card 与 `initialize` 合约，再单独实现 v4 simulator/adapter，最后接入策略；v3 回归线保持可复现。
 
 ## 公开材料边界
 
