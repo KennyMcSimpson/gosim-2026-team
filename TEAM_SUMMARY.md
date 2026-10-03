@@ -43,3 +43,8 @@
 - [赛事 Rules/Docs](https://create.gosim.org/survey26/platform/rules)
 - [赛事公告](https://create.gosim.org/survey26/platform/announcements)
 - [本地模拟器仓库](https://github.com/KennyMcSimpson/gosim-agentic-observer)
+## 2026-10-03：L1–L4 训练卡隔离
+
+- 将官方公开本地训练卡 L1–L4、v4 runner、ENGINE_MANIFEST、校验脚本及 CC BY-NC 4.0 许可放入 training/official-v4/；该目录用于固定训练与回归。
+- L1–L4 与应用使用的 alpha–delta 校准卡是两套不同卡组。alpha–delta 校准结果和之后 seed 生成的 synthetic 变体应留在应用仓库并彼此分开；不要用 seed 改写任何固定卡。
+- 本目录来自组织方示例包的本地副本；运行报告只能解释为本地训练/回归结果，不代表云端正式成绩。
