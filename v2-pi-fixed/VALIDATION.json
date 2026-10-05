@@ -1,0 +1,256 @@
+{
+  "verified_date_beijing": "2026-10-06",
+  "zip": "v2-pi-fixed.zip",
+  "zip_sha256": "471a86480279414f7c4965b1eda45afc56e58fabe91ac45c3b4a237883ef9c8e",
+  "zip_bytes": 493948,
+  "zip_file_count": 31,
+  "source_matches_zip": true,
+  "worker_hash_verified": true,
+  "source_sha256": {
+    "agent.py": "9360d99673f60a9c5940526469bdffafc82ac302c5bb0dc3b0eb8d31335832e1",
+    "agent_core/__init__.py": "86f2aa3636a25e64fde75376458dbe0fa1efcbee58d18ee5cfc93322ccc45330",
+    "agent_core/advisor.py": "f9d72c3a2fe80e70b36c57a0979ecf869f92433f89379bd0d3512ba8af974721",
+    "agent_core/calendar.py": "8c731f4badf3d8dbcc511d710546f682c7b9d164ff133612884f006358a352de",
+    "agent_core/clock.py": "60734578598daba50e3d1ee38b6536dba4c61a71e0c87b89f7a03f0909d9e454",
+    "agent_core/geometry.py": "50715ad56f148a403b1c86dba61427f0c59efbd589e4aabc3cded53ae59459b0",
+    "agent_core/llm_client.py": "7b86f936e6eecfb5e8566c019e78f4370f49f17a953e2dcb82c0aa1eb2280dba",
+    "agent_core/memory.py": "50b85b4a71e0450b54eb9487d40da11fddc8c41199612fba3810ddddf0e8bbfa",
+    "agent_core/pi_client.py": "20c82337893117a2756f44a67d05624e79d9164718ef90ad0c4d0bb2eb28d6bf",
+    "agent_core/planner.py": "6b1a05699a97746a5979c05f33ac15359fa71dc0c83c738288e32e9b90ebc507",
+    "agent_core/planner_search.py": "86f35d92e96a986f245ae6d4c0470c63cac2136cae0911c6f88466a67c3507d3",
+    "agent_core/pro_advisor.py": "eea463e2f2b471f3f08220748dbedc1b33b778d19f2e40eced8a0e3431098c10",
+    "agent_core/protocol.py": "470c26cae91e2d40fd629d31d024338e32a2ca645cec669cace2433f7e76edcf",
+    "agent_core/scoring.py": "61ba99f7a074e46a427be2350b47c1daaa5619398bee881b25a5940d02092d78",
+    "agent_core/state.py": "7205e2f11e67dd405051107fd363243ecce4c19d76b587c7d175e2c9204a051c",
+    "agent_core/validation.py": "688e2b67fda2e16cb80e04005b69808ae2df82d21822edb8385da48a788f017c",
+    "CHANGELOG.md": "f1ad9479e06494d2182f5a7aeefbe98f69fdaeadd101885d6f4035c39398bf35",
+    "observer.project.json": "86f3dd62ba82cd8e7150fff78dc5fedbc03c4e653f679afc4a88505f6073d24f",
+    "pack_agent.py": "c9d601a6ccf2c2357498cc1309fce942cd328e00e3fd893fa14d237eafa402b3",
+    "pi_adapter/build_bundle.mjs": "b94165b4d715996747f98bc0bec65486ae7f08eed31c17a154b2af4142cdc356",
+    "pi_adapter/build_runtime.py": "6b79fb265048876c4fa8c0461ad4311bcba04a2c13af7c2fff8c78bd43f62c91",
+    "pi_adapter/node_worker.mjs": "23532d6d02f7dccaf8ba104aabd26a7587b1e88e2441d70cb8eb07bf8d60f8d5",
+    "pi_adapter/package-lock.json": "df8f05e16026fc3585fb90f7a32b71bce53368c7f04ac80636686ccf01086f69",
+    "pi_adapter/package.json": "3939732c55ad071213bd4b6b0aa99f6e1243a000935103999b9a1584651d11d3",
+    "pi_adapter/Pi.LICENSE.txt": "4f6a1985796db5225e3b1e59972bd47e07a27a0748427cb3d3c8fbf39f9311f0",
+    "pi_adapter/THIRD_PARTY_LICENSES.txt": "7f698afd1ea03bda5c3e6f8a52332ea6332ecc32f6b460c14d2b337185ccf912",
+    "pi_adapter/worker.bundle.mjs": "9de7ba72255f04d3590ef6ccb2a8af18d15304e3736a21c882aa1190be962cf9",
+    "pi_adapter/worker.bundle.sha256": "0286f162cc5f52ef22b29ed75ae10a97bc3128fcfe5aafba894dc3dcaacdfc2e",
+    "README.md": "a85a6fcb9868696ea81fd12446c403651cdfa230da3c8595e0c6ed7919a9ebf1",
+    "README.zh.md": "1994a1dcfb899cc7e7b5dd18a8af5e67edaa378379c01a3fba7de66ab65c159e",
+    "requirements.txt": "28c136620c07c2b7a42c43472d6589dcc6074f0ad03a2bf7fd8623fae8494194"
+  },
+  "baseline_commit": "1589f104cf2bda6dc5bd2df7d9c008caed32ce03",
+  "formal_evaluations": 0,
+  "practice_evaluations": 0,
+  "live_model_calls": 0,
+  "truth_files_read": 0,
+  "parity": [
+    {
+      "backend": "disabled",
+      "card": "a",
+      "fibers": 16,
+      "actions_equal": 4,
+      "pending_equal": true,
+      "request_and_resync": true,
+      "stable_pacing": true
+    },
+    {
+      "backend": "disabled",
+      "card": "b",
+      "fibers": 25,
+      "actions_equal": 4,
+      "pending_equal": true,
+      "request_and_resync": true,
+      "stable_pacing": true
+    },
+    {
+      "backend": "disabled",
+      "card": "c",
+      "fibers": 9,
+      "actions_equal": 4,
+      "pending_equal": true,
+      "request_and_resync": true,
+      "stable_pacing": true
+    },
+    {
+      "backend": "disabled",
+      "card": "d",
+      "fibers": 100,
+      "actions_equal": 4,
+      "pending_equal": true,
+      "request_and_resync": true,
+      "stable_pacing": true
+    },
+    {
+      "backend": "pi-fixed",
+      "card": "a",
+      "fibers": 16,
+      "actions_equal": 4,
+      "pending_equal": true,
+      "request_and_resync": true,
+      "stable_pacing": true
+    },
+    {
+      "backend": "pi-fixed",
+      "card": "b",
+      "fibers": 25,
+      "actions_equal": 4,
+      "pending_equal": true,
+      "request_and_resync": true,
+      "stable_pacing": true
+    },
+    {
+      "backend": "pi-fixed",
+      "card": "c",
+      "fibers": 9,
+      "actions_equal": 4,
+      "pending_equal": true,
+      "request_and_resync": true,
+      "stable_pacing": true
+    },
+    {
+      "backend": "pi-fixed",
+      "card": "d",
+      "fibers": 100,
+      "actions_equal": 4,
+      "pending_equal": true,
+      "request_and_resync": true,
+      "stable_pacing": true
+    },
+    {
+      "backend": "v2",
+      "card": "a",
+      "fibers": 16,
+      "actions_equal": 4,
+      "pending_equal": true,
+      "request_and_resync": true,
+      "stable_pacing": true
+    },
+    {
+      "backend": "v2",
+      "card": "b",
+      "fibers": 25,
+      "actions_equal": 4,
+      "pending_equal": true,
+      "request_and_resync": true,
+      "stable_pacing": true
+    },
+    {
+      "backend": "v2",
+      "card": "c",
+      "fibers": 9,
+      "actions_equal": 4,
+      "pending_equal": true,
+      "request_and_resync": true,
+      "stable_pacing": true
+    },
+    {
+      "backend": "v2",
+      "card": "d",
+      "fibers": 100,
+      "actions_equal": 4,
+      "pending_equal": true,
+      "request_and_resync": true,
+      "stable_pacing": true
+    }
+  ],
+  "pi": {
+    "pi_version": "1.0.3",
+    "node": "22.20.0",
+    "http_requests": 8,
+    "http_roles": [
+      "notice_interpretation",
+      "feedback_adaptation",
+      "notice_interpretation",
+      "feedback_adaptation",
+      "notice_interpretation",
+      "feedback_adaptation",
+      "notice_interpretation",
+      "feedback_adaptation"
+    ],
+    "cards": [
+      {
+        "card": "a",
+        "fibers": 16,
+        "applied_roles": {
+          "notice_interpretation": 1,
+          "feedback_adaptation": 1
+        },
+        "no_candidate_review": true,
+        "official_geometry_valid": true,
+        "pending_matches": true
+      },
+      {
+        "card": "b",
+        "fibers": 25,
+        "applied_roles": {
+          "notice_interpretation": 1,
+          "feedback_adaptation": 1
+        },
+        "no_candidate_review": true,
+        "official_geometry_valid": true,
+        "pending_matches": true
+      },
+      {
+        "card": "c",
+        "fibers": 9,
+        "applied_roles": {
+          "notice_interpretation": 1,
+          "feedback_adaptation": 1
+        },
+        "no_candidate_review": true,
+        "official_geometry_valid": true,
+        "pending_matches": true
+      },
+      {
+        "card": "d",
+        "fibers": 100,
+        "applied_roles": {
+          "notice_interpretation": 1,
+          "feedback_adaptation": 1
+        },
+        "no_candidate_review": true,
+        "official_geometry_valid": true,
+        "pending_matches": true
+      }
+    ],
+    "provider": "local mock SSE",
+    "live_model_calls": 0
+  },
+  "entrypoint": [
+    {
+      "card": "a",
+      "fibers": 16,
+      "clean_stdout": true,
+      "official_geometry_valid": true,
+      "model_key": "absent"
+    },
+    {
+      "card": "b",
+      "fibers": 25,
+      "clean_stdout": true,
+      "official_geometry_valid": true,
+      "model_key": "absent"
+    },
+    {
+      "card": "c",
+      "fibers": 9,
+      "clean_stdout": true,
+      "official_geometry_valid": true,
+      "model_key": "absent"
+    },
+    {
+      "card": "d",
+      "fibers": 100,
+      "clean_stdout": true,
+      "official_geometry_valid": true,
+      "model_key": "absent"
+    }
+  ],
+  "verified_at_utc": "2026-10-05T18:49:21.873985+00:00",
+  "unit_tests": {
+    "passed": 30,
+    "failed": 0
+  },
+  "online_score": null
+}

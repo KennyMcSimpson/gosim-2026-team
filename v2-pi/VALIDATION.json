@@ -1,0 +1,233 @@
+{
+  "verified_date_beijing": "2026-10-06",
+  "zip": "v2-pi.zip",
+  "zip_sha256": "19df6d3cb08079fe5c152435af414c656897b5ba9152d1272b947d3ccef68e18",
+  "zip_bytes": 487926,
+  "zip_file_count": 30,
+  "source_matches_zip": true,
+  "worker_hash_verified": true,
+  "source_sha256": {
+    "agent.py": "59ce3b89e4fed61a097e69fcd9d2c21038d9504617bf4cbcaa228c3331d178b8",
+    "agent_core/__init__.py": "86f2aa3636a25e64fde75376458dbe0fa1efcbee58d18ee5cfc93322ccc45330",
+    "agent_core/advisor.py": "f6180db54c70e49616b6ef64017e7433488207071f5026414c1909195b68ea1c",
+    "agent_core/calendar.py": "8c731f4badf3d8dbcc511d710546f682c7b9d164ff133612884f006358a352de",
+    "agent_core/clock.py": "60734578598daba50e3d1ee38b6536dba4c61a71e0c87b89f7a03f0909d9e454",
+    "agent_core/geometry.py": "50715ad56f148a403b1c86dba61427f0c59efbd589e4aabc3cded53ae59459b0",
+    "agent_core/llm_client.py": "7b86f936e6eecfb5e8566c019e78f4370f49f17a953e2dcb82c0aa1eb2280dba",
+    "agent_core/memory.py": "50b85b4a71e0450b54eb9487d40da11fddc8c41199612fba3810ddddf0e8bbfa",
+    "agent_core/pi_client.py": "852bc8919bf825f848f585c5eaa7b22e194e2fdbe7ec98152c1715401f017b09",
+    "agent_core/planner.py": "26b49e136374c2b37a10f87cc8fced002ae261263d3a7ad1ab18ee8bacfa98ae",
+    "agent_core/planner_search.py": "2901e64c50a585357ddaef5cc4b2f83892f089dac1f7b053b51a94bb69548c78",
+    "agent_core/protocol.py": "470c26cae91e2d40fd629d31d024338e32a2ca645cec669cace2433f7e76edcf",
+    "agent_core/scoring.py": "61ba99f7a074e46a427be2350b47c1daaa5619398bee881b25a5940d02092d78",
+    "agent_core/state.py": "7205e2f11e67dd405051107fd363243ecce4c19d76b587c7d175e2c9204a051c",
+    "agent_core/validation.py": "688e2b67fda2e16cb80e04005b69808ae2df82d21822edb8385da48a788f017c",
+    "CHANGELOG.md": "d848847bd92ce71dc92f43e1ec8d1a53f7b32acf1d67c30eacd78b17c09db9cc",
+    "observer.project.json": "86f3dd62ba82cd8e7150fff78dc5fedbc03c4e653f679afc4a88505f6073d24f",
+    "pack_agent.py": "2176f1153d0ced46b568e40d7aad151923f696f559621d2e6aef8cb0029646f6",
+    "pi_adapter/build_bundle.mjs": "b94165b4d715996747f98bc0bec65486ae7f08eed31c17a154b2af4142cdc356",
+    "pi_adapter/build_runtime.py": "6b79fb265048876c4fa8c0461ad4311bcba04a2c13af7c2fff8c78bd43f62c91",
+    "pi_adapter/node_worker.mjs": "3f9da06bbce257820cc07df55826f3886c2c18b82d9147d23e5527d2d044e2b0",
+    "pi_adapter/package-lock.json": "df8f05e16026fc3585fb90f7a32b71bce53368c7f04ac80636686ccf01086f69",
+    "pi_adapter/package.json": "3939732c55ad071213bd4b6b0aa99f6e1243a000935103999b9a1584651d11d3",
+    "pi_adapter/Pi.LICENSE.txt": "4f6a1985796db5225e3b1e59972bd47e07a27a0748427cb3d3c8fbf39f9311f0",
+    "pi_adapter/THIRD_PARTY_LICENSES.txt": "7f698afd1ea03bda5c3e6f8a52332ea6332ecc32f6b460c14d2b337185ccf912",
+    "pi_adapter/worker.bundle.mjs": "1616e198480817eb80f855de714830aa75937b9c259be335579cf340a8d19163",
+    "pi_adapter/worker.bundle.sha256": "11c73e1fc8479696dc0ff524ec495e95ebc9441b4ff7f5cb64cc276087045894",
+    "README.md": "67861e8664a73962ee61d447ef76e85fe0df1db09f40220f3f64a1d55d92ee1f",
+    "README.zh.md": "805f81dc272701d8c714ca0f9d7552d59d02b18a504e6c47c665347b1fe3d54e",
+    "requirements.txt": "28c136620c07c2b7a42c43472d6589dcc6074f0ad03a2bf7fd8623fae8494194"
+  },
+  "baseline_commit": "1589f104cf2bda6dc5bd2df7d9c008caed32ce03",
+  "user_export": {
+    "evaluation_id": "e4cafb56-4761-40b2-be2e-13db4b354582",
+    "revision_id": "78404870-2b71-4a52-bdaa-cc3c42972cc8",
+    "version": "v1-pi",
+    "sha256": "c5e8a49d26bc5000e291430f9a93ebe652db1ce6b5f325a3e6ebdfb2b1c921b6",
+    "mean_score": 24493.8322215,
+    "cards": [
+      {
+        "card": "1-a",
+        "total": 18566.591018,
+        "components": {
+          "observation_request_reward": 600.0,
+          "report_settlement": 0.0,
+          "required_penalty": -350.0,
+          "sum_best_scores": 18324.206922,
+          "uniformity_penalty": -7.615904
+        },
+        "counts": {
+          "decisions": 5586,
+          "invalidated_observations": 0,
+          "observation_requests_completed": 6,
+          "observation_requests_issued": 6,
+          "observations": 47183,
+          "observe_actions": 3538,
+          "required_missing": 7,
+          "targets_observed": 25556
+        },
+        "termination": {
+          "detail": "",
+          "reason": "survey_complete"
+        },
+        "fair_clock": {
+          "budget_seconds": 900.0,
+          "charged_seconds": 408.023,
+          "cpu_meter": "cpu",
+          "cpu_seconds": 266.236,
+          "hard_cap_reached": false,
+          "hard_cap_seconds": 1800.0,
+          "mode": "cpu",
+          "run_wall_seconds": 383.598,
+          "schema_version": "fair-clock-v1",
+          "speed_factor": 0.7474,
+          "speed_factor_max": 0.7474,
+          "speed_factor_min": 0.59,
+          "speed_samples": 7,
+          "wait_seconds": 3.231,
+          "window_seconds": 269.466
+        },
+        "pi_reviews": 0,
+        "pi_outcomes": {},
+        "pi_changes": 0
+      },
+      {
+        "card": "2-b",
+        "total": 30583.582413,
+        "components": {
+          "observation_request_reward": 300.0,
+          "report_settlement": 100.0,
+          "required_penalty": -0.0,
+          "sum_best_scores": 30194.011577,
+          "uniformity_penalty": -10.429164
+        },
+        "counts": {
+          "decisions": 11372,
+          "invalidated_observations": 0,
+          "observation_requests_completed": 3,
+          "observation_requests_issued": 6,
+          "observations": 66598,
+          "observe_actions": 7257,
+          "required_missing": 0,
+          "targets_observed": 40524
+        },
+        "termination": {
+          "detail": "",
+          "reason": "agent_finished"
+        },
+        "fair_clock": {
+          "budget_seconds": 900.0,
+          "charged_seconds": 662.287,
+          "cpu_meter": "cpu",
+          "cpu_seconds": 691.838,
+          "hard_cap_reached": false,
+          "hard_cap_seconds": 1800.0,
+          "mode": "cpu",
+          "run_wall_seconds": 1191.648,
+          "schema_version": "fair-clock-v1",
+          "speed_factor": 1.1187,
+          "speed_factor_max": 1.1187,
+          "speed_factor_min": 0.987,
+          "speed_samples": 20,
+          "wait_seconds": 26.544,
+          "window_seconds": 718.382
+        },
+        "pi_reviews": 0,
+        "pi_outcomes": {},
+        "pi_changes": 0
+      },
+      {
+        "card": "3-c",
+        "total": 16531.606988,
+        "components": {
+          "observation_request_reward": 500.0,
+          "report_settlement": 0.0,
+          "required_penalty": -150.0,
+          "sum_best_scores": 16192.712177,
+          "uniformity_penalty": -11.105189
+        },
+        "counts": {
+          "decisions": 7270,
+          "invalidated_observations": 0,
+          "observation_requests_completed": 5,
+          "observation_requests_issued": 6,
+          "observations": 41022,
+          "observe_actions": 4714,
+          "required_missing": 3,
+          "targets_observed": 23855
+        },
+        "termination": {
+          "detail": "",
+          "reason": "agent_finished"
+        },
+        "fair_clock": {
+          "budget_seconds": 900.0,
+          "charged_seconds": 510.486,
+          "cpu_meter": "cpu",
+          "cpu_seconds": 583.359,
+          "hard_cap_reached": false,
+          "hard_cap_seconds": 1800.0,
+          "mode": "cpu",
+          "run_wall_seconds": 795.126,
+          "schema_version": "fair-clock-v1",
+          "speed_factor": 1.1353,
+          "speed_factor_max": 1.1958,
+          "speed_factor_min": 1.123,
+          "speed_samples": 14,
+          "wait_seconds": 4.8,
+          "window_seconds": 588.159
+        },
+        "pi_reviews": 0,
+        "pi_outcomes": {},
+        "pi_changes": 0
+      },
+      {
+        "card": "4-d",
+        "total": 32293.548467,
+        "components": {
+          "observation_request_reward": 600.0,
+          "report_settlement": 200.0,
+          "required_penalty": -100.0,
+          "sum_best_scores": 31593.551672,
+          "uniformity_penalty": -0.003205
+        },
+        "counts": {
+          "decisions": 13148,
+          "invalidated_observations": 2010,
+          "observation_requests_completed": 6,
+          "observation_requests_issued": 6,
+          "observations": 98696,
+          "observe_actions": 6611,
+          "required_missing": 2,
+          "targets_observed": 29999
+        },
+        "termination": {
+          "detail": "",
+          "reason": "survey_complete"
+        },
+        "fair_clock": {
+          "budget_seconds": 900.0,
+          "charged_seconds": 273.771,
+          "cpu_meter": "cpu",
+          "cpu_seconds": 240.36,
+          "hard_cap_reached": false,
+          "hard_cap_seconds": 1800.0,
+          "mode": "cpu",
+          "run_wall_seconds": 758.16,
+          "schema_version": "fair-clock-v1",
+          "speed_factor": 0.9264,
+          "speed_factor_max": 0.999,
+          "speed_factor_min": 0.8322,
+          "speed_samples": 13,
+          "wait_seconds": 7.705,
+          "window_seconds": 248.065
+        },
+        "pi_reviews": 0,
+        "pi_outcomes": {},
+        "pi_changes": 0
+      }
+    ]
+  },
+  "archive_unchanged": true,
+  "upload_source_hash_not_in_export": true
+}

@@ -1,0 +1,10 @@
+# This example uses only the Python standard library (json, urllib, math, datetime, ...).
+# No third-party packages are required to run it.
+#
+# If you extend it with a package (e.g. an OpenAI SDK instead of raw urllib calls),
+# list it here AND add a matching "build" step to observer.project.json. The container's
+# system directories are read-only, so install into the project folder, e.g.:
+#   "build": [["pip", "install", "--no-cache-dir", "--target", ".deps", "-r", "requirements.txt"]],
+#   "environment": {"PYTHONDONTWRITEBYTECODE": "1", "PYTHONPATH": "/workspace/.deps"}
+# The build step has internet access; the agent run does not (only the model API).
+# Dependencies are not installed automatically otherwise.

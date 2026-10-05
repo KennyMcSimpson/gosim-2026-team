@@ -18,6 +18,21 @@ the team's Python baseline, and candidate strategies for online trials.
 v3 正式回执 A/B/C 提前耗尽 CPU，均分由旧结果 24940.80 降为 17054.15。
 历史 v4-pi 保留归档，用户报告 Pi 效果不好，但缺这个具体 ZIP 的正式分项回执。
 
+## v2 的 Pi 适配归档与修复（2026-10-06）
+
+用户指定原 v2 为迁移基线。两版 Pi 的线上结果未达预期，已保留原包并记录失败。
+新修复候选恢复 v2 模型角色，默认关闭动作替换，修复建议过期和故障重复否决。
+工程验证通过；新版本线上提分仍未验证。
+
+| Pi 版本 | 状态 | 下载与说明 |
+| --- | --- | --- |
+| v2-pi | 历史原包；平台版本名 v1-pi；均分 24493.83。 | [ZIP](v2-pi/v2-pi.zip) / [说明](v2-pi/README.md) |
+| v2-pi-pro | 历史原包；平台版本名 v2-pi-new；均分 23800.89。 | [ZIP](v2-pi-pro/v2-pi-pro.zip) / [说明](v2-pi-pro/README.md) |
+| v2-pi-fixed | 回归修复候选；尚无新线上分数。 | [ZIP](v2-pi-fixed/v2-pi-fixed.zip) / [源码与说明](v2-pi-fixed/README.md) |
+
+[失败分项、故障修复差异及未验证边界](PI_FAILURE_ANALYSIS.md)。
+上述两次均分是 Pi 之间的对照，不是用户指定原 v2 的实测对照。
+
 ## 历史候选：v3 科学收益修正版（2026-10-05）
 
 基于 team PR #2 和 v2 集中版，针对 v1 平台回执修正单次曝光收益、反馈学习、
