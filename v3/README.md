@@ -1,5 +1,9 @@
 # v3 科学收益修正版
 
+> 2026-10-06 状态更新：正式评测 76c437d3 的 A/B/C 提前耗尽 CPU，均分
+> 17054.15。原 ZIP/源码保留；下方说明为交付时的历史状态。
+> 当前建议 [v4-official](../v4-official/)，详见 [失败分析](../FAILURE_ANALYSIS.md)。
+
 2026-10-05。基于朋友已合并的 [PR #2](https://github.com/KennyMcSimpson/gosim-2026-team/pull/2)
 及 [v2 集中版](../v2(jmk)/concentrated-20261005/README.md)，根据 Kenny 提供的 v1
 平台回执修正观测策略。目标是改善正式题科学收益与请求调度；是否增分由下一轮

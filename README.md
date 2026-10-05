@@ -3,7 +3,22 @@
 This public repository keeps the official GOSIM Agentic Observer examples,
 the team's Python baseline, and candidate strategies for online trials.
 
-## 最新候选：v3 科学收益修正版（2026-10-05）
+## 最新候选：v4 官方 Python 架构版（2026-10-06）
+
+本次按 Kenny 的要求回到官方 Python 架构，完全不使用 Pi/Node。
+修复 v3 计算预算、决策成本、饱和目标请求召回和部分请求过滤问题。
+保留直接 HTTP 的公告解释和反馈建议两个模型角色。
+
+- [下载 v4.zip，完整项目上传](v4-official/v4.zip)
+- [使用方式、修复与验证](v4-official/README.md)
+- [v3 与 v4-pi 的失败原因和证据边界](FAILURE_ANALYSIS.md)
+- [对应源码](v4-official/project/)
+
+最终 ZIP 的回归与四光纤配置协议验证通过；正式增分、整季预算和 SOTA 待实测。
+v3 正式回执 A/B/C 提前耗尽 CPU，均分由旧结果 24940.80 降为 17054.15。
+历史 v4-pi 保留归档，用户报告 Pi 效果不好，但缺这个具体 ZIP 的正式分项回执。
+
+## 历史候选：v3 科学收益修正版（2026-10-05）
 
 基于 team PR #2 和 v2 集中版，针对 v1 平台回执修正单次曝光收益、反馈学习、
 请求目标召回和两步规划。只提供一个通用候选。
@@ -21,7 +36,9 @@ the team's Python baseline, and candidate strategies for online trials.
 
 | 版本 | 内容 | 入口 |
 | --- | --- | --- |
-| v3 | 本次科学收益修正版，供下一轮线上试跑。 | [说明](v3/README.md) / [ZIP](v3/v3.zip) / [源码](v3/project/) |
+| v4-official | 当前推荐，官方 Python 架构，无 Pi；预算与请求修复。 | [说明](v4-official/README.md) / [ZIP](v4-official/v4.zip) / [源码](v4-official/project/) |
+| v4-pi | 历史 Pi 候选，原包冻结；此次不再推荐。 | [说明](v4-pi/README.md) / [ZIP](v4-pi/v4-pi.zip) / [源码](v4-pi/project/) |
+| v3 | 正式评测退步，保留追溯；A/B/C CPU 耗尽。 | [说明](v3/README.md) / [ZIP](v3/v3.zip) / [失败分析](FAILURE_ANALYSIS.md) |
 | v2(jmk) | 前一版集中升级候选。 | [说明](v2(jmk)/concentrated-20261005/README.md) |
 | v1(lhl) | team PR #2 合并的朋友基线。 | [来源](v1(lhl)/README.md) / [源码](v1(lhl)/python-agent-baseline-unmodified/) |
 

@@ -1,1 +1,3 @@
 scripts/*.sh text eol=lf
+v4-official/project/** -text
+v4-pi/project/** -text

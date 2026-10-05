@@ -1,0 +1,85 @@
+{
+  "version": "v4-official",
+  "date": "2026-10-06",
+  "status": "ENGINEERING_CHECKS_PASSED_SCORE_UNVERIFIED",
+  "artifact": "v4.zip",
+  "artifact_sha256": "1f82d7c8510563f0ea7c92b7997a454c91d94cefcf072f280e3e1afec1170a1c",
+  "artifact_bytes": 52844,
+  "artifact_files": 20,
+  "source_sha256": {
+    "agent.py": "f9a931630816667cc69faddb49f5008206aeb0bae26c34bca0d6139fbac6b192",
+    "agent_core/__init__.py": "86f2aa3636a25e64fde75376458dbe0fa1efcbee58d18ee5cfc93322ccc45330",
+    "agent_core/advisor.py": "42aa267d75a8046292a9448bc4eb6ac3f01b4ccc891179d16759ecbe485814b1",
+    "agent_core/calendar.py": "8c731f4badf3d8dbcc511d710546f682c7b9d164ff133612884f006358a352de",
+    "agent_core/clock.py": "60734578598daba50e3d1ee38b6536dba4c61a71e0c87b89f7a03f0909d9e454",
+    "agent_core/geometry.py": "50715ad56f148a403b1c86dba61427f0c59efbd589e4aabc3cded53ae59459b0",
+    "agent_core/llm_client.py": "7b86f936e6eecfb5e8566c019e78f4370f49f17a953e2dcb82c0aa1eb2280dba",
+    "agent_core/memory.py": "50b85b4a71e0450b54eb9487d40da11fddc8c41199612fba3810ddddf0e8bbfa",
+    "agent_core/planner.py": "fb7d76f9195bc8c498d57f4e9cdaece1dfa7d433efeaef695f005c87d132a5c1",
+    "agent_core/planner_search.py": "b4e586e5124025a27c94b636b255b51c69bfdcb9fbc9f10bfd3ae1f350e53e00",
+    "agent_core/protocol.py": "470c26cae91e2d40fd629d31d024338e32a2ca645cec669cace2433f7e76edcf",
+    "agent_core/scoring.py": "61ba99f7a074e46a427be2350b47c1daaa5619398bee881b25a5940d02092d78",
+    "agent_core/state.py": "da8bef44b899ec3200df522a9cfb8d128f76d2fc77dcc9ed8ff466d2cba74004",
+    "agent_core/validation.py": "688e2b67fda2e16cb80e04005b69808ae2df82d21822edb8385da48a788f017c",
+    "CHANGELOG.md": "e2589526a879c4c8041e8d63f7660443ec1583a2689deda3a293001c5dcb8eba",
+    "observer.project.json": "373d448f4193fbb5364edb347cc99d2468de98db253267e1267c26ac98e6c43b",
+    "pack_agent.py": "346d1aa4d23ae0ab3d0f44b301353af1a5bfcc0f397d276eaba914f8f454b8e7",
+    "README.md": "509e400a21bb8737c758e5d04fc0d812289f9e60374749ead03c2a6a864292e7",
+    "README.zh.md": "51895460e4d9652bdf681848fe141d081fcad0fd099458f739d90f9445086361",
+    "requirements.txt": "28c136620c07c2b7a42c43472d6589dcc6074f0ad03a2bf7fd8623fae8494194"
+  },
+  "manifest": {
+    "schema_version": "observer-project-v1",
+    "protocol": "jsonl-v4",
+    "image": "python:3.12-slim",
+    "build": [],
+    "run": [
+      "python3",
+      "-u",
+      "agent.py"
+    ],
+    "working_directory": ".",
+    "environment": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    }
+  },
+  "checks": {
+    "synthetic_tests": 18,
+    "recovery_regression_groups": 3,
+    "request_recall_saturated_expired_unreachable_overlap_multistep": true,
+    "extracted_zip_protocol": true,
+    "official_action_and_fiber_validation": true,
+    "synthetic_feedback_resync": true,
+    "public_fibers": [
+      9,
+      16,
+      25,
+      100
+    ],
+    "applied_localhost_http_roles": [
+      "notice_interpretation",
+      "feedback_adaptation"
+    ],
+    "standard_library_only": true,
+    "no_pi_or_node_runtime": true,
+    "credential_literal_check": true,
+    "source_archive_byte_equality": true
+  },
+  "formal_evaluations": 0,
+  "practice_evaluations": 0,
+  "real_model_calls": 0,
+  "truth_files_read": 0,
+  "score_improvement_verified": false,
+  "full_season_verified": false,
+  "limitations": [
+    "Windows engineering checks with synthetic feedback and localhost HTTP only",
+    "Hosted full-season budget and real-model score require new platform evidence",
+    "Short REQUIRED exposures can still increase decision count"
+  ],
+  "delegation": {
+    "requested": "gpt-6-luna/max",
+    "actual_route": "unverified",
+    "status": "ROUTING_POLICY_VIOLATION",
+    "adopted_child_findings": 0
+  }
+}
