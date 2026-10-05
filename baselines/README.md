@@ -1,4 +1,15 @@
-# Official Python baseline
+# Python baseline provenance
+
+Current source is [python-agent-baseline-unmodified/](python-agent-baseline-unmodified/).
+[PR #2](https://github.com/KennyMcSimpson/gosim-2026-team/pull/2) replaced the earlier
+ZIP with an extracted project and changed its strategy. The directory keeps its
+historical name; the packaging record below describes the earlier unmodified
+official ZIP, which is no longer present at the current main revision.
+
+The 2026-10-05 concentrated upgrade is a separate
+[candidate with source, upload ZIP and change notes](../candidates/concentrated-20261005/README.md).
+
+## Historical official ZIP (2026-10-04)
 
 `python-agent-baseline-unmodified.zip` contains all 19 files from the `python/`
 directory of the current [official examples archive](../training/official-examples/SOURCE.md).

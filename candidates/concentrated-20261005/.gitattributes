@@ -1,0 +1,3 @@
+# Keep the reviewed source bytes identical to the delivered upload archive.
+project/** -text
+*.zip -text
