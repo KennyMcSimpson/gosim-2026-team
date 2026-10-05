@@ -1,0 +1,41 @@
+{
+  "version": "v3",
+  "date": "2026-10-05",
+  "artifact": "v3.zip",
+  "artifact_sha256": "e97e22b58bac079c7fa476fab8256e27ab9a765a2cedd6a8ec318e26bbf922f0",
+  "artifact_bytes": 51039,
+  "artifact_files": 20,
+  "status": "DELIVERY_CHECKS_OK",
+  "archive_identity": "Renamed copy of the validated gosim-science-repair-20261005.zip; not repacked",
+  "checks": {
+    "existing_synthetic_contract_tests": 13,
+    "science_repair_synthetic_behavior_tests": 5,
+    "request_recall_normal_and_fast": true,
+    "request_expired_and_unreachable_controls": true,
+    "request_overlapping_and_two_step": true,
+    "old_candidate_negative_recall_control": true,
+    "public_config_fibers": [9, 16, 25, 100],
+    "official_action_validation": true,
+    "official_zero_offset_fiber_hits": true,
+    "synthetic_feedback_resync": true,
+    "localhost_model_roles": ["notice_interpretation", "feedback_adaptation"],
+    "old_public_feedback_replay": "REPLAY_OK",
+    "replay_samples_per_card": 5,
+    "extracted_archive_protocol_smoke": true,
+    "project_archive_byte_equality": true,
+    "source_allowlist": true,
+    "credential_literal_check": true
+  },
+  "evaluation_scope": {
+    "truth_files_read": 0,
+    "new_formal_scores": 0,
+    "practice_runs": 0,
+    "platform_uploads": 0,
+    "real_model_calls": 0
+  },
+  "limitations": [
+    "Protocol, geometry, synthetic behavior and sampled feedback replay only; no score improvement established.",
+    "Real model operation, hosted season CPU budget, hidden generalization and SOTA remain unverified.",
+    "Child applied-model provenance was not exposed; marked ROUTING_POLICY_VIOLATION. Root independently reran checks and reviewed key code."
+  ]
+}
