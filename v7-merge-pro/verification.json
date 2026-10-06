@@ -1,0 +1,59 @@
+{
+  "checked_at": "2026-10-06T17:35:33.839782+00:00",
+  "status": "engineering_verified_effect_unverified",
+  "official_source_commit": "ab27e5ef32f0a834b054d855cf9706b44502204b",
+  "source_sha256": "f76cc7852722c94c4f97a52f68abb1d9ed2e75f6d6e63cfb985fcfa09c4be0f1",
+  "runtime_files": {
+    "advisor.py": "f54bfbc0d6407f246c75d80514c4c1dfd85fca597678c02335729113e1b4ea37",
+    "agent.py": "bfa4bd6edde8b50803832d35f294e2c9b8905a3e8376eabf69acda12a262a9bf",
+    "calibration.py": "331c9081eab1f26100f392cbb5ff0e739fe4416bc27fcbc325bff44edeb56bc1",
+    "llm_client.py": "e689bbe1cca95f3f74ac8645198a6e1069f5d035c762b27f2f917c90408c4fd4",
+    "observer.project.json": "05864e73b166bf3e5bda2056c0ac621b62b0fc1d85a9c0896b5e265b56f8fe3d",
+    "operations.py": "2c0b0b3d09cbe1e2c253b325e9bf9d28d3bb673021f97b56528d3c42a0339b15",
+    "planner.py": "f015d4df809d42d0baa1af781935fa0afe61b3f6624384bb584cf12b434df55c",
+    "short_horizon.py": "58b0c5a0bec88d41b300fd1bfebc6850c517026e6c75e33af4fef7baeccdbb67",
+    "skymath.py": "23ac21dc241d05c9164c2f9df0a2a2fe3457330c118eee3aa8abe778b1f00291"
+  },
+  "zip_sha256": "c995cb8fff57f7fe3fb6b7086658a98b5dc758981c05f25903518c1409e03428",
+  "zip_bytes": 59938,
+  "checks": [
+    {
+      "name": "full_contract_tests",
+      "exit_code": 0,
+      "output": "tests.txt"
+    },
+    {
+      "name": "actual_archive_keyless_protocol",
+      "fibers": 9,
+      "exit_code": 0,
+      "action": "observe",
+      "finish_audit": true
+    },
+    {
+      "name": "actual_archive_keyless_protocol",
+      "fibers": 16,
+      "exit_code": 0,
+      "action": "observe",
+      "finish_audit": true
+    },
+    {
+      "name": "actual_archive_keyless_protocol",
+      "fibers": 25,
+      "exit_code": 0,
+      "action": "observe",
+      "finish_audit": true
+    },
+    {
+      "name": "actual_archive_keyless_protocol",
+      "fibers": 100,
+      "exit_code": 0,
+      "action": "observe",
+      "finish_audit": true
+    }
+  ],
+  "real_model_calls": 0,
+  "scored_trajectories": 0,
+  "platform_uploads": 0,
+  "effect_verified": false,
+  "route_status": "ROUTING_POLICY_VIOLATION: applied child settings unavailable"
+}

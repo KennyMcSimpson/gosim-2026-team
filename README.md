@@ -3,7 +3,21 @@
 This public repository keeps the official GOSIM Agentic Observer examples,
 the team's Python baseline, and candidate strategies for online trials.
 
-## 最新候选：v4 官方 Python 架构版（2026-10-06）
+## 最新候选：v7 merge-pro（2026-10-07）
+
+基于官方 Python Pro，接入公开配置、完整请求奖励、值班 Operations Agent、
+可撤销的 science 增量适配与两曝光短窗重排。模型调用默认不限次数。
+
+- [下载 v7 ZIP，完整项目上传](v7-merge-pro/v7-merge-pro.zip)
+- [完整最终方案](v7-merge-pro/PLAN.md)
+- [使用方式与验证边界](v7-merge-pro/README.md)
+- [Week4.2 调研依据](v7-merge-pro/RESEARCH.md)
+- [对应源码](v7-merge-pro/project/)
+
+56 项测试和实际 ZIP 解压后的 9/16/25/100 光纤协议检查通过。
+真实模型效果、完整卡预算、提分与隐藏泛化尚未验证。
+
+## 历史候选：v4 官方 Python 架构版（2026-10-06）
 
 本次按 Kenny 的要求回到官方 Python 架构，完全不使用 Pi/Node。
 修复 v3 计算预算、决策成本、饱和目标请求召回和部分请求过滤问题。
@@ -51,7 +65,10 @@ v3 正式回执 A/B/C 提前耗尽 CPU，均分由旧结果 24940.80 降为 1705
 
 | 版本 | 内容 | 入口 |
 | --- | --- | --- |
-| v4-official | 当前推荐，官方 Python 架构，无 Pi；预算与请求修复。 | [说明](v4-official/README.md) / [ZIP](v4-official/v4.zip) / [源码](v4-official/project/) |
+| v7-merge-pro | 最新完整候选，官方 Pro 基座与任务级在线适配；效果待测。 | [方案](v7-merge-pro/PLAN.md) / [ZIP](v7-merge-pro/v7-merge-pro.zip) / [说明](v7-merge-pro/README.md) |
+| v6 | 队友提交的 v6，保留其原始文件。 | [目录](v6/) |
+| v5 | 队友提交的 v5，保留其原始文件。 | [目录](v5/) |
+| v4-official | 历史官方 Python 架构候选，无 Pi；预算与请求修复。 | [说明](v4-official/README.md) / [ZIP](v4-official/v4.zip) / [源码](v4-official/project/) |
 | v4-pi | 历史 Pi 候选，原包冻结；此次不再推荐。 | [说明](v4-pi/README.md) / [ZIP](v4-pi/v4-pi.zip) / [源码](v4-pi/project/) |
 | v3 | 正式评测退步，保留追溯；A/B/C CPU 耗尽。 | [说明](v3/README.md) / [ZIP](v3/v3.zip) / [失败分析](FAILURE_ANALYSIS.md) |
 | v2(jmk) | 前一版集中升级候选。 | [说明](v2(jmk)/concentrated-20261005/README.md) |
