@@ -29,13 +29,13 @@ class TraceLog:
                 self.path = ""
 
     def write(self, record: dict) -> None:
-        if not self._handle or self._handle.closed:
+        if not self._handle:
             return
         try:
             record = {"ts": time.time(), **record}
             self._handle.write(json.dumps(record, separators=(",", ":")) + "\n")
             self._handle.flush()
-        except (OSError, ValueError):
+        except OSError:
             pass  # a trace write must never interrupt the decision loop
 
     def close(self) -> None:

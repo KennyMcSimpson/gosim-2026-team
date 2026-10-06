@@ -37,6 +37,7 @@ class Planner(JointSearch):
         self.total_assigned = self.total_hit = 0
         self.last_report_hours = float("-inf")
         self.suspicion_hours = []
+        self._pending_report_evidence = None
         self._last_forecast_notices = []
         self._current_action_index = None
         self._active_requests_now, self._request_views_now = [], []
@@ -45,6 +46,7 @@ class Planner(JointSearch):
         self._uniformity_totals, self._uniformity_observed = {}, {}
         self._uniformity_penalty_now = 0.0
         self._uniformity_gain_cache, self._quality_cache, self._risk_cache = {}, {}, {}
+        self._seen_resync_count = getattr(state, "resync_count", 0)
         log(f"planner: {len(state.ids)} targets ({sum(state.required)} required), "
             f"{len(state.nights)} nights; event-driven model roles enabled")
 
@@ -56,6 +58,31 @@ class Planner(JointSearch):
         # Ingest the latest exposure first, then roll back the authoritative window.
         state.on_result(payload.get("last_result"), hours)
         state.on_messages(payload.get("new_messages", []), payload.get("latest_bulletin"))
+        if getattr(state, "resync_count", 0) != self._seen_resync_count:
+            self._seen_resync_count = state.resync_count
+            # A retraction changes the authoritative science/completion ledger.
+            # Do not carry candidate or uniformity caches across that boundary.
+            self._uniformity_version = -1
+            self._uniformity_totals, self._uniformity_observed = {}, {}
+            self._uniformity_gain_cache.clear()
+            self._quality_cache.clear()
+            self._risk_cache.clear()
+            self._request_views_now = []
+            self._request_thresholds_now = {}
+            self._request_bonus_now = {}
+            window = getattr(state, "last_resync_window", None) or {}
+            self.log("planner: state_resync #%s event=%s window=%s-%s; "
+                     "cleared planning caches" % (
+                         state.resync_count,
+                         getattr(state, "last_resync_event_id", None),
+                         window.get("action_index_start"),
+                         window.get("action_index_end_exclusive")))
+            self.trace.write({
+                "event": "state_resync",
+                "count": state.resync_count,
+                "trigger_event_id": getattr(state, "last_resync_event_id", None),
+                "invalidated_window": dict(window),
+            })
         for message in payload.get("new_messages", []):
             if message.get("record_type") == "forecast":
                 self._last_forecast_notices = message.get("notices", [])
@@ -77,13 +104,13 @@ class Planner(JointSearch):
         if night is None:
             nxt = state.next_night_start(now)
             return ({"action": "wait", "until_utc": format_utc(nxt), "reason": "next observing night"}
-                    if nxt else {"action": "finish", "reason": "no observing night left"})
+                    if nxt else self._finish_or_wait(now, "no observing night left"))
         night_index, night_start, night_end = night
         self.advisor.update(state, payload, night_index, self.clock.wall_remaining(), self._last_forecast_notices)
         if (night_end - now).total_seconds() < state.min_exposure:
             nxt = state.next_night_start(now)
             return ({"action": "wait", "until_utc": format_utc(nxt), "reason": "night ending"}
-                    if nxt else {"action": "finish", "reason": "survey over"})
+                    if nxt else self._finish_or_wait(now, "survey over"))
         if state.site_closed():
             return {"action": "wait", "duration_seconds": self._to_next_slot(now, night_start),
                     "reason": "whole-sky rain/storm notice"}
@@ -105,11 +132,39 @@ class Planner(JointSearch):
             self.state.pending_action_index = None
 
     def on_finish(self, payload):
+        advisor_telemetry = self.advisor.summary()
+        client_stats = dict(getattr(self.llm, "stats", {}) or {})
         self.trace.write({"event": "finish", **payload,
-                          "model_role_applications": dict(self.advisor.applied)})
+                          "model_role_applications": dict(self.advisor.applied),
+                          "model_advisor_telemetry": advisor_telemetry,
+                          "llm_client_stats": client_stats})
         self.trace.close()
+        missing_required = sum(
+            required and factor < self.state.scoring.required_threshold
+            for required, factor in zip(self.state.required, self.state.factor)
+        )
+        active_requests = sum(
+            1 for request in self._active_requests_now
+            if int(request.get("remaining_count", 0) or 0) > 0
+        )
         self.log(f"planner: termination={payload.get('termination_reason')} "
-                 f"observes={self.observe_count} reports={self.reports} llm_calls={self.llm.calls_made}")
+                 f"observes={self.observe_count} reports={self.reports} llm_calls={self.llm.calls_made} "
+                 f"required_missing_local={missing_required} active_requests={active_requests} "
+                 f"llm_telemetry={advisor_telemetry.get('totals', {})}")
+
+    def _finish_or_wait(self, now, reason):
+        """Never finish merely because there is a gap before survey_end.
+
+        The runner may have no more observing night but still be inside the
+        declared survey interval.  Waiting until the authoritative end keeps
+        the protocol alive and leaves any later decision/request message
+        visible to the planner.  Once survey_end has passed, finish is the
+        only legal outcome even if a hard target was not achievable.
+        """
+        if now < self.state.survey_end:
+            return {"action": "wait", "until_utc": format_utc(self.state.survey_end),
+                    "reason": f"{reason}; survey interval not over"}
+        return {"action": "finish", "reason": reason}
 
     def _to_next_slot(self, now, night_start):
         slot = self.state.slot_seconds
@@ -141,24 +196,44 @@ class Planner(JointSearch):
         threshold = REPORT_DROP if self.reports == 0 else REPORT_DROP - 0.07
         if evidence is None or evidence.drop >= threshold:
             self.suspicion_hours = []
+            self._pending_report_evidence = None
             return None
         if evidence.dark_checks < 6:
             state.force_program = "DARK"
         elif evidence.dark_matched < 0.5 * evidence.dark_checks:
             self.suspicion_hours = []
+            self._pending_report_evidence = None
             return None
-        if self.suspicion_hours and hours - self.suspicion_hours[-1] < REPORT_SPACING_HOURS:
+        evidence_dict = evidence._asdict()
+        if self._pending_report_evidence is None:
+            if self.suspicion_hours and hours - self.suspicion_hours[-1] < REPORT_SPACING_HOURS:
+                return None
+            self.suspicion_hours.append(hours)
+            if len(self.suspicion_hours) < REPORT_CONFIRMATIONS:
+                return None
+            self.suspicion_hours = []
+            self._pending_report_evidence = evidence_dict
+        elif self._pending_report_evidence != evidence_dict:
+            # Quality evidence changed while the previous query was in flight;
+            # discard that verdict and require fresh confirmations.
+            self._pending_report_evidence = None
+            self.suspicion_hours = [hours]
             return None
-        self.suspicion_hours.append(hours)
-        if len(self.suspicion_hours) < REPORT_CONFIRMATIONS:
-            return None
-        self.suspicion_hours = []
+
         answer = None
-        if not self.advisor.pending and self.clock.wall_remaining() > 320:
-            answer = self.llm.ask_json(
-                'Check instrument-fault evidence. Return JSON {"report":true|false}. '
-                'False reports cost points; missing fiber hits are not fault evidence.',
-                evidence._asdict(), self.clock.wall_remaining())
+        report_ready = True
+        if self.advisor.pending - {"fault_report"}:
+            # Other advisor roles are still running.  Keep the deterministic
+            # report rule rather than adding another queued network wait.
+            self._pending_report_evidence = None
+        elif self.clock.wall_remaining() > 320:
+            # Keep the report question on the advisor's background worker.  A
+            # slow model response must never hold up the ordinary decision loop.
+            report_ready, answer = self.advisor.request_fault_report(
+                evidence_dict, self.clock.wall_remaining())
+        if not report_ready:
+            return None
+        self._pending_report_evidence = None
         verdict = answer.get("report") if isinstance(answer, dict) else None
         if verdict is False:
             self.last_report_hours = hours

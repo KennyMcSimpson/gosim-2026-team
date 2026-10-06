@@ -1,0 +1,26 @@
+{
+  "decision_response": {
+    "action": "observe",
+    "assignments": {
+      "0": "T0"
+    },
+    "decision_sequence": 0,
+    "decision_source": "joint-planner",
+    "duration_seconds": 600,
+    "message_type": "decision_response",
+    "pointing": {
+      "alt_deg": 70.0,
+      "az_deg": 270.0
+    },
+    "program": "DARK",
+    "protocol_version": "participant-agent-protocol-v4",
+    "reason": "1 fibres, program DARK"
+  },
+  "returncode": 0,
+  "stderr_tail": [
+    "planner: 1 targets (0 required), 1 nights; event-driven model roles enabled",
+    "planner: termination=smoke observes=1 reports=0 llm_calls=1"
+  ],
+  "stdout_messages": 1,
+  "trace_path": "C:\\Users\\HP\\Documents\\Harry\\gosim-2026-team-main\\v5\\results\\protocol_smoke_llm_trace.jsonl"
+}

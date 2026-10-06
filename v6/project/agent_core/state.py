@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import bisect
 import math
+import statistics
 from collections import deque
 from typing import NamedTuple, Optional
 
@@ -19,6 +20,12 @@ from .scoring import ScoringModel
 
 ALT_MARGIN_DEG = 0.6
 SKY_MEMORY_HOURS = 2.0
+# Quality and fault learning is exposure based.  A 100-fibre exposure is one
+# observation of the sky, rather than one hundred independent weather votes.
+RECENT_ACTIONS = 6
+MIN_FAULT_ACTIONS = 4
+# Fault evidence is deliberately exposure-level and needs enough observations
+# on both sides of a possible step change before it can trigger a report.
 RECENT_SAMPLES = 60
 EARLIER_SAMPLES = 60
 SIDEREAL_DEG_PER_SECOND = 360.98564736629 / 86400.0
@@ -26,7 +33,7 @@ SIDEREAL_DEG_PER_SECOND = 360.98564736629 / 86400.0
 
 class PendingPrediction(NamedTuple):
     model: float          # lunar/airmass quality model used at planning time
-    band_model: float      # model / 0.95, used for program-band back-estimation
+    band_model: float      # model adjusted by learned instrument scale
     alt: float
     az: float
     clean: bool            # true when no all-sky notice / directional block applied at plan time
@@ -41,6 +48,7 @@ class FaultEvidence(NamedTuple):
     earlier_samples: int
     dark_checks: int
     dark_matched: int
+    recent_directions: int = 0
 
 
 class ExposureRecord(NamedTuple):
@@ -139,8 +147,16 @@ class SurveyState:
         self.direction_actions = [0] * 8
         self.direction_invalidated = [0] * 8
         self.clean_history: list[tuple[float, int, float]] = []  # (hours, night, ratio)
+        # Direction evidence is kept separately so legacy three-tuples in
+        # synthetic callers remain valid.  Each entry corresponds to one
+        # exposure-level quality vote and contains the clean compass buckets
+        # represented by that exposure.
+        self.clean_direction_history: list[tuple[float, frozenset[int]]] = []
         self.pending_night = -1
-        self._band_checks: deque = deque(maxlen=60)        # (program, matched, model)
+        # Score-only band evidence.  Entries are saturated matched/mismatch
+        # classifications; instrument efficiency is deliberately absent.
+        self._band_checks: deque = deque(maxlen=64)        # (program, status, model), one per exposure
+        self.band_evidence = {"matched": 0, "mismatch": 0, "ambiguous": 0}
         self.force_program: Optional[str] = None
         self.pending: dict[str, PendingPrediction] = {}
         self.pending_program = "BACKUP"
@@ -155,15 +171,35 @@ class SurveyState:
         self.hit_rate = 1.0
         self.fast_level = 0
 
+        # Hard-mode data loss can invalidate otherwise successful exposures.
+        # Keep the audit facts separate from the small set of targets that
+        # still need recovery, so a resync cannot silently disappear into the
+        # ordinary science score bookkeeping.
+        self.recovery_queue: dict[int, dict] = {}
+        self.last_resync: dict = {}
+        self.resync_count = 0
+
         # Separate science scores and conservative completion-factor lower bounds.
         # Only surviving actual exposures remain after a Hard-mode rollback.
         self.ledger: list[ExposureRecord] = []
         self.pending_action_index: Optional[int] = None
         self.pending_start = None
         self.pending_end = None
-        self.resync_count = 0
-        self.last_resync_event_id = None
-        self.last_resync_window = None
+
+        # Report feedback is public state.  Both report_result messages and
+        # the next last_result can carry the same record, so signatures are
+        # deduplicated here before changing free allowances or quality memory.
+        self.false_reports_since_correct = 0
+        self.report_free_remaining = self.false_report_free_allowance
+        self.report_feedback_seen: set[tuple] = set()
+        self.last_report_feedback_signature = None
+        self.last_report_feedback_hours = float("-inf")
+        self.report_cooldown_until_hours = float("-inf")
+        # ``last_result`` has no report id in the public v4 payload, while the
+        # corresponding report_result message normally carries issued_at_utc.
+        # Keep a one-turn alias so the two views of one report can be joined
+        # without collapsing two later reports that happen to have equal deltas.
+        self._pending_report_aliases: dict[tuple, tuple] = {}
 
     # -- spatial index -------------------------------------------------------
 
@@ -229,7 +265,104 @@ class SurveyState:
 
     # -- messages and results -------------------------------------------------
 
+    @staticmethod
+    def _report_feedback_base(record: dict) -> tuple:
+        """Return hashable outcome fields shared by both report payload forms."""
+        correct = bool(record.get("correct", record.get("repaired", False)))
+        repaired = bool(record.get("repaired", correct))
+        raw_delta = record.get("score_delta")
+        try:
+            delta = round(float(raw_delta), 9) if raw_delta is not None else None
+        except (TypeError, ValueError):
+            delta = str(raw_delta)
+        return correct, repaired, delta
+
+    def _report_feedback_token(self, record: dict, base: tuple) -> Optional[tuple]:
+        """Use the strongest public event identifier available for a report."""
+        for field in ("report_id", "decision_id", "issued_at_utc"):
+            value = record.get(field)
+            if value is not None:
+                return (field, str(value), *base)
+        return None
+
+    def _report_message_hours(self, record: dict) -> float:
+        issued = record.get("issued_at_utc")
+        if issued is not None:
+            try:
+                return (parse_utc(str(issued)) - self.survey_start).total_seconds() / 3600.0
+            except (TypeError, ValueError, OverflowError):
+                pass
+        return self.last_report_feedback_hours
+
+    def _apply_report_feedback(self, record: dict, hours: float, signature: tuple) -> bool:
+        """Apply one previously unseen report outcome and return whether applied."""
+        if signature in self.report_feedback_seen:
+            return False
+        self.report_feedback_seen.add(signature)
+        base = self._report_feedback_base(record)
+        correct = base[0]
+        self.last_report_feedback_signature = signature
+        self.last_report_feedback_hours = hours
+        self.report_cooldown_until_hours = hours
+        if correct:
+            # A confirmed repair starts a fresh false-report allowance and a
+            # fresh quality baseline for the next fault episode.
+            self.false_reports_since_correct = 0
+            self.report_free_remaining = self.false_report_free_allowance
+            self.forget_quality_history()
+        else:
+            self.false_reports_since_correct += 1
+            self.report_free_remaining = max(
+                0, self.false_report_free_allowance - self.false_reports_since_correct
+            )
+        return True
+
+    def _on_report_feedback(self, record: dict, hours: float, source: str) -> bool:
+        """Ingest a report result from either a result or message payload.
+
+        The runner exposes one report twice.  An untagged ``last_result`` is
+        applied immediately and retained as a one-turn alias; a following
+        ``report_result`` with the same outcome consumes that alias instead of
+        applying the allowance/quality transition a second time.
+        """
+        base = self._report_feedback_base(record)
+        token = self._report_feedback_token(record, base)
+        if token is not None:
+            alias = self._pending_report_aliases.pop(base, None)
+            if alias is not None:
+                # Mark the explicit form as seen so a replayed message is also
+                # harmless, while retaining the state transition done by the
+                # untagged last_result.
+                self.report_feedback_seen.add(token)
+                self.last_report_feedback_signature = token
+                return False
+            return self._apply_report_feedback(record, hours, token)
+
+        if source == "last_result":
+            # Some protocol adapters deliver the explicit message before the
+            # matching last_result.  In that order the most recent explicit
+            # token is the same report when it is close in simulated time.
+            previous = self.last_report_feedback_signature
+            if isinstance(previous, tuple) and len(previous) >= 3 and tuple(previous[-3:]) == base:
+                if previous[0] in ("report_id", "decision_id", "issued_at_utc"):
+                    if abs(hours - self.last_report_feedback_hours) <= 2.0:
+                        return False
+                elif previous[0] == "last_result" and len(previous) >= 5 and previous[1] == round(float(hours), 9):
+                    return False
+            # Include the decision time because a later report can legitimately
+            # have identical correct/repaired/delta fields.
+            signature = ("last_result", round(float(hours), 9), *base)
+            applied = self._apply_report_feedback(record, hours, signature)
+            if applied:
+                self._pending_report_aliases[base] = signature
+            return applied
+
+        signature = ("message", round(float(hours), 9), *base)
+        return self._apply_report_feedback(record, hours, signature)
+
     def on_messages(self, messages: list[dict], latest_bulletin: Optional[dict]) -> None:
+        # Aliases are only valid for the current decision: in the official
+        # runner this method follows on_result in the same turn.
         for message in messages:
             if message.get("record_type") == "bulletin" and message.get("initial"):
                 for notice in message.get("notices", []):
@@ -237,9 +370,12 @@ class SurveyState:
                         self.terrain.add(notice.get("direction"))
             elif message.get("record_type") == "state_resync":
                 self._resync(message)
+            elif message.get("record_type") == "report_result":
+                self._on_report_feedback(message, self._report_message_hours(message), "message")
         notices = (latest_bulletin or {}).get("notices", [])
         self.notices = {f"{n.get('event_kind')}|{n.get('direction')}" for n in notices
                         if n.get("event_kind") != "terrain_obstruction"}
+        self._pending_report_aliases.clear()
 
     def _resync(self, message: dict) -> None:
         """Discard retracted exposures and rebuild separate science/factor maxima.
@@ -251,15 +387,19 @@ class SurveyState:
         """
         window = message.get("invalidated_window") or {}
         start, end = window.get("action_index_start"), window.get("action_index_end_exclusive")
-        try:
-            start = int(start) if start is not None else None
-            end = int(end) if end is not None else None
-        except (TypeError, ValueError):
-            start, end = None, None
+        ledger_before = list(self.ledger)
         if start is not None and end is not None:
-            self.ledger = [entry for entry in self.ledger if not (start <= entry[0] < end)]
+            invalidated_entries = [entry for entry in ledger_before
+                                   if start <= entry.action_index < end]
+            self.ledger = [entry for entry in ledger_before
+                           if not (start <= entry.action_index < end)]
         else:
-            self.ledger = []  # no window given: nothing in the ledger can be trusted
+            # Without an action window the local ledger cannot establish which
+            # rows survived.  Preserve the audit fact, then rebuild from the
+            # authoritative best-score snapshot below.
+            invalidated_entries = ledger_before
+            self.ledger = []
+        invalidated_target_ids = {entry.target_id for entry in invalidated_entries}
         exact: dict[str, float] = {}
         scores: dict[str, float] = {}
         for entry in self.ledger:
@@ -288,11 +428,6 @@ class SurveyState:
             self.factor[i] = min(1.0, max(0, score - 0.0000005) / (self.weight[i] * top_multiplier)) if score > 0 and self.weight[i] > 0 else 0.0
         if start is not None and end is not None:
             self.invalidated_actions.update(k for k in self.validity_actions if start <= k < end)
-        else:
-            # A resync without an explicit window says that the prior local
-            # history is not trustworthy.  Keep the action map for diagnostics,
-            # but count every known action as invalidated for risk estimation.
-            self.invalidated_actions.update(self.validity_actions)
         self.direction_invalidated = [0] * 8
         for k in self.invalidated_actions:
             self.direction_invalidated[self.validity_actions[k]] += 1
@@ -311,17 +446,124 @@ class SurveyState:
             samples.clear()
         self.pending.clear()
         self.pending_action_index = None
-        self.pending_start = None
-        self.pending_end = None
-        self.pending_program = "BACKUP"
-        self.pending_duration = 0
-        self.pending_night = -1
+
+        # The public resync payload includes request progress but not the
+        # completion factor for each target.  Pair its incomplete request
+        # targets with the locally known invalidated targets; if the local
+        # ledger is unavailable, conservatively retain every incomplete target
+        # from the snapshot for one recovery pass.
+        request_recovery: dict[str, set[str]] = {}
+        request_snapshots = message.get("observation_requests") or []
+        for request in request_snapshots:
+            if not isinstance(request, dict):
+                continue
+            request_id = str(request.get("request_id", "unknown"))
+            try:
+                remaining = int(request.get("remaining_count", 1))
+            except (TypeError, ValueError):
+                remaining = 1
+            if remaining <= 0:
+                continue
+            target_ids = {str(target_id) for target_id in (request.get("target_ids") or [])}
+            completed = {str(target_id) for target_id in
+                         (request.get("completed_target_ids") or [])}
+            # The resync snapshot is authoritative for request progress, while
+            # the local ledger only contains positive hits.  Do not intersect
+            # this set with ``invalidated_target_ids``: a target can have been
+            # assigned in the invalidated span without ever producing a
+            # positive ledger row, and it still needs a recovery opportunity.
+            needed = target_ids - completed
+            for target_id in needed:
+                request_recovery.setdefault(target_id, set()).add(request_id)
+
+        # If no local ledger rows identify the invalidated span, the only
+        # deterministic fallback is to protect currently incomplete REQUIRED
+        # targets.  This is intentionally bounded to the required catalogue;
+        # ordinary science targets remain governed by the normal search.
+        recovery_ids = set(invalidated_target_ids) | set(request_recovery)
+        if not invalidated_target_ids:
+            recovery_ids.update(
+                self.ids[i] for i in range(len(self.ids))
+                if self.required[i] and self.factor[i] < self.scoring.required_threshold
+            )
+        event_id = str(message.get("trigger_event_id") or "state_resync")
+        for target_id in recovery_ids:
+            i = self.index_of.get(target_id)
+            if i is None:
+                continue
+            required_pending = (self.required[i] and
+                                self.factor[i] < self.scoring.required_threshold)
+            request_ids = request_recovery.get(target_id, set())
+            if not required_pending and not request_ids:
+                continue
+            entry = self.recovery_queue.setdefault(i, {
+                "target_id": target_id,
+                "request_ids": set(),
+                "events": [],
+            })
+            entry["request_ids"].update(request_ids)
+            if event_id not in entry["events"]:
+                entry["events"].append(event_id)
+
         self.resync_count += 1
-        self.last_resync_event_id = message.get("trigger_event_id")
-        self.last_resync_window = {
-            "action_index_start": start,
-            "action_index_end_exclusive": end,
+        self.last_resync = {
+            "event_id": event_id,
+            "invalidated_window": dict(window),
+            "invalidated_target_ids": sorted(invalidated_target_ids),
+            "recovery_target_ids": sorted(self.ids[i] for i in self.recovery_queue),
+            "request_ids": sorted({rid for ids in request_recovery.values() for rid in ids}),
         }
+
+    def refresh_recovery_queue(self, active_requests: Optional[list[dict]] = None) -> None:
+        """Drop recovery entries whose REQUIRED/request obligation is resolved.
+
+        ``active_requests`` is the current decision snapshot.  Passing ``None``
+        leaves request obligations untouched, which is useful for callers that
+        only ingest a resync message before the next decision.
+        """
+        if active_requests is None:
+            return
+        active_needs: dict[str, set[str]] = {}
+        for request in active_requests:
+            if not isinstance(request, dict):
+                continue
+            request_id = str(request.get("request_id", "unknown"))
+            try:
+                remaining = int(request.get("remaining_count", 1))
+            except (TypeError, ValueError):
+                remaining = 1
+            if remaining <= 0:
+                continue
+            completed = {str(target_id) for target_id in
+                         (request.get("completed_target_ids") or [])}
+            for target_id in (request.get("target_ids") or []):
+                target_id = str(target_id)
+                if target_id not in completed:
+                    active_needs.setdefault(target_id, set()).add(request_id)
+
+        for i, entry in list(self.recovery_queue.items()):
+            target_id = self.ids[i]
+            entry["request_ids"] = set(active_needs.get(target_id, set()))
+            required_pending = (self.required[i] and
+                                self.factor[i] < self.scoring.required_threshold)
+            if not required_pending and not entry["request_ids"]:
+                self.recovery_queue.pop(i, None)
+
+        if self.last_resync:
+            self.last_resync["recovery_target_ids"] = sorted(
+                self.ids[i] for i in self.recovery_queue
+            )
+
+    def recovery_target_indices(self) -> tuple[int, ...]:
+        """Return recovery targets with REQUIRED targets before requests."""
+        return tuple(sorted(
+            self.recovery_queue,
+            key=lambda i: (
+                0 if self.required[i] and self.factor[i] < self.scoring.required_threshold else 1,
+                -len(self.recovery_queue[i].get("request_ids", ())),
+                i,
+            ),
+        ))
 
     def site_closed(self) -> bool:
         for key in self.notices:
@@ -336,6 +578,8 @@ class SurveyState:
     def on_result(self, last_result: Optional[dict], hours: float) -> None:
         action_index = self.pending_action_index
         self.pending_action_index = None
+        if last_result and last_result.get("action") == "report":
+            self._on_report_feedback(last_result, hours, "last_result")
         if not last_result or last_result.get("action") != "observe" or not self.pending:
             self.pending.clear()
             return
@@ -346,6 +590,12 @@ class SurveyState:
         mismatch = scoring.mismatch_multiplier
         declared_multiplier = multipliers.get(self.pending_program, 1.0)
         f0t0 = scoring.f0t0
+        # A single exposure is one sky-quality observation.  Collect target
+        # level ratios while updating progress, then add one robust aggregate
+        # to each quality/fault history below.
+        quality_samples: list[tuple[float, int, bool]] = []
+        clean_quality_samples: list[tuple[float, int]] = []
+        band_outcomes: list[tuple[bool, float]] = []
         if action_index is not None and self.pending:
             prediction = next(iter(self.pending.values()))
             bucket = int((prediction.az + 22.5) % 360 / 45)
@@ -370,9 +620,9 @@ class SurveyState:
             multiplier_seen = score / weight
             if prediction.clean:
                 if abs(multiplier_seen - declared_multiplier) < 2e-4:
-                    self._band_checks.append((self.pending_program, True, prediction.model))
+                    band_outcomes.append((True, prediction.model))
                 elif abs(multiplier_seen - mismatch) < 2e-4:
-                    self._band_checks.append((self.pending_program, False, prediction.model))
+                    band_outcomes.append((False, prediction.model))
             factor_if_match = score / (weight * declared_multiplier) if declared_multiplier > 0 else 0.0
             factor_if_miss = score / (weight * mismatch) if mismatch > 0 else 0.0
             ratio_match = (factor_if_match * f0t0) / (self.flux[i] * self.pending_duration * prediction.model) \
@@ -381,9 +631,28 @@ class SurveyState:
             matched = band == self.pending_program
             factor = factor_if_match if matched else factor_if_miss
             factor = min(1.0, factor)
-            # Feedback exposes score only. Program mismatch/efficiency can be
-            # ambiguous; do not claim its inverse is an exact completion factor.
-            factor_lower = min(1.0, max(0.0, score - 0.0000005) / (weight * max(declared_multiplier, mismatch, 1e-9)))
+            # Feedback exposes score only.  Usually the hidden completion
+            # factor and the program multiplier cannot be separated.  A hit
+            # whose score/weight is within the public six-decimal rounding
+            # tolerance of a known multiplier is the useful exception: it is
+            # saturated (factor ~= 1), so that multiplier identifies the
+            # denominator even when the declared program was mismatched.
+            # Otherwise retain the conservative lower bound from the largest
+            # multiplier that could have produced the score.
+            lower_bound_multiplier = max(declared_multiplier, mismatch, 1e-9)
+            if weight > 0.0:
+                public_multipliers = [mismatch]
+                public_multipliers.extend(multipliers.values())
+                public_multipliers = [float(value) for value in public_multipliers if float(value) > 0.0]
+                if public_multipliers:
+                    nearest_multiplier = min(
+                        public_multipliers,
+                        key=lambda value: abs(multiplier_seen - value),
+                    )
+                    if abs(multiplier_seen - nearest_multiplier) < 2e-4:
+                        lower_bound_multiplier = nearest_multiplier
+            factor_lower = min(1.0, max(0.0, score - 0.0000005) /
+                               (weight * lower_bound_multiplier))
             old = self.factor[i]
             self.factor[i] = max(old, factor_lower)
             self.best_score[i] = max(self.best_score[i], score)
@@ -399,11 +668,30 @@ class SurveyState:
                 self.attempts[i] += 1
             if factor < 0.97 and self.flux[i] > 0 and self.pending_duration > 0 and prediction.model > 0:
                 ratio = (factor * f0t0) / (self.flux[i] * self.pending_duration * prediction.model)
-                self._samples.append((hours, ratio))
-                self._all_ratios.append(ratio)
-                self.direction_ratios[int((prediction.az + 22.5) % 360 / 45)].append(ratio)
+                bucket = int((prediction.az + 22.5) % 360 / 45)
+                quality_samples.append((ratio, bucket, prediction.clean))
                 if prediction.clean:
-                    self.clean_history.append((hours, self.pending_night, ratio))
+                    clean_quality_samples.append((ratio, bucket))
+        if quality_samples:
+            aggregate_ratio = float(statistics.median(ratio for ratio, _, _ in quality_samples))
+            self._samples.append((hours, aggregate_ratio))
+            self._all_ratios.append(aggregate_ratio)
+            for bucket in {bucket for _, bucket, _ in quality_samples}:
+                self.direction_ratios[bucket].append(aggregate_ratio)
+        if clean_quality_samples:
+            clean_ratio = float(statistics.median(ratio for ratio, _ in clean_quality_samples))
+            clean_buckets = frozenset(bucket for _, bucket in clean_quality_samples)
+            self.clean_history.append((hours, self.pending_night, clean_ratio))
+            self.clean_direction_history.append((hours, clean_buckets))
+        if band_outcomes:
+            matched = sum(1 for is_match, _ in band_outcomes if is_match)
+            status = matched * 2 > len(band_outcomes)
+            model = float(statistics.median(model for _, model in band_outcomes))
+            self._band_checks.append((self.pending_program, status, model))
+            key = ("matched" if matched * 2 > len(band_outcomes)
+                   else "mismatch" if matched * 2 < len(band_outcomes)
+                   else "ambiguous")
+            self.band_evidence[key] += 1
         self.pending.clear()
         self.update_scale(hours)
 
@@ -485,7 +773,10 @@ class SurveyState:
 
     def forget_quality_history(self) -> None:
         self.clean_history = []
+        self.clean_direction_history = []
         self._band_checks.clear()
+        for key in self.band_evidence:
+            self.band_evidence[key] = 0
         self._samples.clear()
         self._all_ratios.clear()
         self.prior_scale = 1.0

@@ -1,0 +1,49 @@
+{
+  "by_class": {},
+  "components": {
+    "observation_request_reward": 0,
+    "report_settlement": 0.0,
+    "required_penalty": -19500.0,
+    "sum_best_scores": 0,
+    "uniformity_penalty": -200.0
+  },
+  "counts": {
+    "decisions": 0,
+    "invalidated_observations": 0,
+    "observation_requests_completed": 0,
+    "observation_requests_issued": 0,
+    "observations": 0,
+    "observe_actions": 0,
+    "required_missing": 390,
+    "targets_observed": 0
+  },
+  "invalidations": [],
+  "observation_requests": [],
+  "scenario": "v4-l1",
+  "schema_version": "v4-score-report-v1",
+  "sha256": {
+    "decisions": "ad7e90f41d3aa3b7603504720f8e67ee6948317649ccf1cbfb7997bb23b568cc",
+    "messages": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "observations": "b73414b2c006969ad5d6ff5df23666e573786008ca1f1f7959fc3ac98df99c2f",
+    "scenario": "c8d1a8676e4a283b55bdaa59c40f0ae53396e05a93095e6364573ad536c68c43"
+  },
+  "termination": {
+    "detail": "agent initialization failed",
+    "reason": "agent_error"
+  },
+  "total": -19700.0,
+  "uniformity_bands": {
+    "ra_0_10": 0.0,
+    "ra_100_110": 0.0,
+    "ra_10_20": 0.0,
+    "ra_110_120": 0.0,
+    "ra_20_30": 0.0,
+    "ra_30_40": 0.0,
+    "ra_350_360": 0.0,
+    "ra_40_50": 0.0,
+    "ra_50_60": 0.0,
+    "ra_60_70": 0.0,
+    "ra_70_80": 0.0,
+    "ra_90_100": 0.0
+  }
+}

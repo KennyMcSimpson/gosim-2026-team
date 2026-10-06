@@ -30,7 +30,6 @@ import json
 import os
 import random
 import re
-import socket
 import time
 import urllib.error
 import urllib.request
@@ -82,19 +81,10 @@ class LLMClient:
         self.max_calls = max_calls
         self.max_attempts = max_attempts
         self.calls_made = 0
-        self.questions_made = 0
-        self.stats = {
-            "submitted": 0,
-            "attempts": 0,
-            "succeeded": 0,
-            "retries": 0,
-            "timeouts": 0,
-            "failures": 0,
-        }
-        # The advisor copies this after the worker finishes a question.  Keep
-        # it separate from the aggregate counters so a stale response cannot
-        # be mistaken for a successful call in the next planning step.
-        self.last_call = {}
+        # Diagnostic metadata is deliberately separate from the model answer.
+        # EventAdvisor copies it into the trace without recording credentials or
+        # provider response text.
+        self.last_outcome = {"status": "not_started", "attempts": 0}
 
     def _attempt(self, system_prompt: str, user_payload: dict, timeout: float) -> dict:
         """One HTTP attempt. Raises RetryableError for problems worth retrying, any other
@@ -116,10 +106,7 @@ class LLMClient:
         )
         try:
             with urllib.request.urlopen(request, timeout=timeout) as response:
-                try:
-                    data = json.loads(response.read().decode("utf-8"))
-                except (UnicodeDecodeError, json.JSONDecodeError) as exc:
-                    raise RetryableError("invalid JSON HTTP response") from exc
+                data = json.loads(response.read().decode("utf-8"))
         except urllib.error.HTTPError as exc:
             if exc.code == 429 or exc.code >= 500:
                 raise RetryableError(f"HTTP {exc.code}", _retry_after_seconds(exc.headers.get("Retry-After")))
@@ -130,10 +117,7 @@ class LLMClient:
         match = _JSON_OBJECT.search(text)
         if not match:
             raise RetryableError("no JSON object in model reply")
-        try:
-            parsed = json.loads(match.group(0))
-        except (TypeError, json.JSONDecodeError) as exc:
-            raise RetryableError("invalid JSON object in model reply") from exc
+        parsed = json.loads(match.group(0))
         if not isinstance(parsed, dict):
             raise RetryableError("model reply was not a JSON object")
         return parsed
@@ -142,78 +126,50 @@ class LLMClient:
         """One planning question, answered as exactly one JSON object, or None so the
         caller's rule-based answer takes over for this step. `wall_left_seconds` is the
         real time left before the card's cap (`wallclock.wall_remaining_seconds`)."""
-        self.questions_made += 1
-        self.stats["submitted"] += 1
-        request_id = self.questions_made
-        started = time.monotonic()
-        try:
-            wall_left = float(wall_left_seconds)
-        except (TypeError, ValueError):
-            wall_left = 0.0
-        budget = min(QUESTION_DEADLINE_SECONDS, max(0.0, wall_left - WALL_RESERVE_SECONDS))
-        deadline = started + budget
-        outcome = {
-            "request_id": request_id,
-            "submitted": True,
-            "succeeded": False,
-            "attempts": 0,
-            "retries": 0,
-            "timed_out": False,
-            "failure": None,
-        }
-        self.last_call = outcome
+        self.last_outcome = {"status": "started", "attempts": 0}
+        available = wall_left_seconds - WALL_RESERVE_SECONDS
+        if available < 2.0:
+            self.last_outcome = {"status": "fallback", "reason": "wall_reserve", "attempts": 0}
+            self.log("llm: not enough wall time for this question; using the rule-based path")
+            return None
+        deadline = time.monotonic() + min(QUESTION_DEADLINE_SECONDS, available)
         for attempt in range(1, self.max_attempts + 1):
             time_left = deadline - time.monotonic()
             if time_left < 2.0:
-                outcome["failure"] = "deadline"
+                self.last_outcome = {"status": "fallback", "reason": "question_deadline",
+                                     "attempts": attempt - 1}
                 self.log("llm: no time left for this question; using the rule-based path")
-                self.stats["failures"] += 1
-                outcome["duration_ms"] = round((time.monotonic() - started) * 1000, 1)
                 return None
             if self.calls_made >= self.max_calls:
-                outcome["failure"] = "call_cap"
+                self.last_outcome = {"status": "fallback", "reason": "call_cap",
+                                     "attempts": attempt - 1}
                 self.log("llm: call cap reached for this run; using the rule-based path")
-                self.stats["failures"] += 1
-                outcome["duration_ms"] = round((time.monotonic() - started) * 1000, 1)
                 return None
             self.calls_made += 1
-            self.stats["attempts"] += 1
-            outcome["attempts"] = attempt
+            self.last_outcome["attempts"] = attempt
             try:
                 answer = self._attempt(system_prompt, user_payload, min(self.call_timeout_seconds, time_left))
-                outcome["succeeded"] = True
-                outcome["failure"] = None
-                outcome["duration_ms"] = round((time.monotonic() - started) * 1000, 1)
-                self.stats["succeeded"] += 1
+                self.last_outcome = {"status": "success", "attempts": attempt}
                 return answer
             except RetryableError as exc:
-                reason = str(exc)
-                if (isinstance(exc, (TimeoutError, socket.timeout)) or
-                        "timeout" in reason.lower() or "timed out" in reason.lower()):
-                    outcome["timed_out"] = True
-                    self.stats["timeouts"] += 1
-                outcome["failure"] = reason
                 # Exponential backoff with full jitter (1, 2, 4 ... s, randomised), or the
                 # server's Retry-After when it sends one.
                 pause = exc.retry_after if exc.retry_after is not None else random.uniform(0, 2.0 ** (attempt - 1))
                 pause = min(pause, MAX_BACKOFF_SECONDS)
-                will_retry = attempt < self.max_attempts and time.monotonic() + pause < deadline - 2.0
-                if will_retry:
-                    outcome["retries"] = attempt
-                    self.stats["retries"] += 1
-                    self.log(f"llm: attempt {attempt}/{self.max_attempts} failed ({exc}); retry in {pause:.1f}s")
+                self.log(f"llm: attempt {attempt}/{self.max_attempts} failed ({exc}); retry in {pause:.1f}s")
+                if attempt < self.max_attempts and time.monotonic() + pause < deadline - 2.0:
                     time.sleep(pause)  # sleeping is waiting: no CPU budget is charged
                 else:
-                    self.log(f"llm: attempt {attempt}/{self.max_attempts} failed ({exc}); no retry budget remains")
+                    self.last_outcome = {"status": "fallback", "reason": str(exc),
+                                         "attempts": attempt}
                     break
             except Exception as exc:  # noqa: BLE001 - never let the model break a decision
-                outcome["failure"] = type(exc).__name__
-                if isinstance(exc, (TimeoutError, socket.timeout)):
-                    outcome["timed_out"] = True
-                    self.stats["timeouts"] += 1
                 self.log(f"llm: call failed ({type(exc).__name__}); not retrying")
+                self.last_outcome = {"status": "fallback", "reason": type(exc).__name__,
+                                     "attempts": attempt}
                 break
-        self.stats["failures"] += 1
-        outcome["duration_ms"] = round((time.monotonic() - started) * 1000, 1)
+        if self.last_outcome.get("status") == "started":
+            self.last_outcome = {"status": "fallback", "reason": "no_answer",
+                                 "attempts": self.last_outcome.get("attempts", 0)}
         self.log("llm: no answer for this question; this step falls back to its rule-based answer")
         return None

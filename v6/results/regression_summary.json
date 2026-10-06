@@ -1,0 +1,92 @@
+{
+  "best_effort": {
+    "action": {
+      "action": "observe",
+      "assignments": {
+        "0": "T0"
+      },
+      "decision_source": "best-effort",
+      "duration_seconds": 600,
+      "pointing": {
+        "alt_deg": 70.0,
+        "az_deg": 180.0
+      },
+      "program": "DARK"
+    },
+    "events": [
+      "search_summary",
+      "best_effort_fallback"
+    ]
+  },
+  "llm_evidence": {
+    "applied": {
+      "applied": true,
+      "changed": true,
+      "decision_consumer": "Planner._direction_factor",
+      "event": "llm_applied",
+      "fresh": true,
+      "night": 0,
+      "parsed": true,
+      "reason": "applied",
+      "request_id": "notice_interpretation:0:1:test",
+      "role": "notice_interpretation",
+      "state_after": [
+        "S"
+      ],
+      "state_before": [],
+      "state_effect": "extra_avoid",
+      "succeeded": true
+    },
+    "fallback": {
+      "context_id": "fab920e2ed179df2",
+      "event": "llm_fallback",
+      "fresh": true,
+      "night": 0,
+      "reason": "timeout",
+      "request_id": "notice_interpretation:0:2:fail",
+      "role": "notice_interpretation"
+    },
+    "state_after": [
+      "S"
+    ],
+    "state_before": []
+  },
+  "request_and_required_search": {
+    "request_plans": 8,
+    "request_target_seen": true,
+    "required_plans": 8,
+    "required_target_seen": true
+  },
+  "request_duration": {
+    "durations": [
+      60,
+      100,
+      126
+    ],
+    "request_threshold_duration_from_low_k": 126,
+    "shortest_request_duration": 60
+  },
+  "required_median": {
+    "low_k_times_duration": 0.3336,
+    "med_k_times_duration": 0.5004,
+    "required_duration_candidate": 835,
+    "required_gain": 10.0
+  },
+  "state_resync": {
+    "event_id": "V4EV0015",
+    "recovery_target_ids": [
+      "REQ_REQUEST",
+      "REQ_REQUIRED"
+    ],
+    "request_ids": [
+      "RQ001"
+    ]
+  },
+  "urgency_curve": {
+    "0": 800.0,
+    "1": 502.08333333333337,
+    "100": 12.5,
+    "3": 306.25,
+    "6": 12.5
+  }
+}

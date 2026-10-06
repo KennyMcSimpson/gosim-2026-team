@@ -1,0 +1,88 @@
+{
+  "version": "v6",
+  "source_version": "v5",
+  "date": "2026-10-06",
+  "status": "ENGINEERING_CHECKS_PASSED_SCORE_UNVERIFIED",
+  "artifact": "v6.zip",
+  "artifact_sha256": "f3429eb1ff6688de6efab195886e09030e934accc1a564382716e945b64ae031",
+  "artifact_bytes": 62297,
+  "artifact_files": 20,
+  "source_sha256": {
+    "agent.py": "f9a931630816667cc69faddb49f5008206aeb0bae26c34bca0d6139fbac6b192",
+    "pack_agent.py": "662f178b9bdc9ea40f0df626424889c5bde8dd8a56ca4c40e9c78913c420ce0f",
+    "observer.project.json": "373d448f4193fbb5364edb347cc99d2468de98db253267e1267c26ac98e6c43b",
+    "requirements.txt": "28c136620c07c2b7a42c43472d6589dcc6074f0ad03a2bf7fd8623fae8494194",
+    "README.md": "1a167323979a5171aeb1a1effb69ca2ac4653aca5f06a68a4bfc8a4fdf4addc7",
+    "README.zh.md": "d8e5f7e8a00d8c9f1cdf46e8d808e785cef83227139d78d5c5f1aa5f333e2ba8",
+    "CHANGELOG.md": "86c7b55b40b5c1cd051749f0d183f19a0ac72ab235898d79c9671a4eb7d291e1",
+    "agent_core/__init__.py": "86f2aa3636a25e64fde75376458dbe0fa1efcbee58d18ee5cfc93322ccc45330",
+    "agent_core/advisor.py": "e858b20215a532d39195c72b43fcd66167d98270d67576bd7816553900a3d9df",
+    "agent_core/calendar.py": "e9bdb948cf39dbb482e0141e9e7b7842df52cda97793445c69d8c9a2abd61f8a",
+    "agent_core/clock.py": "60734578598daba50e3d1ee38b6536dba4c61a71e0c87b89f7a03f0909d9e454",
+    "agent_core/geometry.py": "50715ad56f148a403b1c86dba61427f0c59efbd589e4aabc3cded53ae59459b0",
+    "agent_core/llm_client.py": "0e38efd223c38d2cc3abb9d19979cb8fe538e84dc54041f5473a45f3d3ee9713",
+    "agent_core/memory.py": "50b85b4a71e0450b54eb9487d40da11fddc8c41199612fba3810ddddf0e8bbfa",
+    "agent_core/planner_search.py": "afdbca89711508a56d951564096fb82c4a6dd50edc70a7b2813f5b9c7c6aa515",
+    "agent_core/planner.py": "5ad428230bfb73b4a50d523823312e5417ee5c60b42ac90170e4188edc3b03ca",
+    "agent_core/protocol.py": "470c26cae91e2d40fd629d31d024338e32a2ca645cec669cace2433f7e76edcf",
+    "agent_core/scoring.py": "61ba99f7a074e46a427be2350b47c1daaa5619398bee881b25a5940d02092d78",
+    "agent_core/state.py": "48ffef5248c853675db672df6a74a75248527e118b75493c7766e03d3ff66e2f",
+    "agent_core/validation.py": "688e2b67fda2e16cb80e04005b69808ae2df82d21822edb8385da48a788f017c"
+  },
+  "manifest": {
+    "schema_version": "observer-project-v1",
+    "protocol": "jsonl-v4",
+    "image": "python:3.12-slim",
+    "build": [],
+    "run": ["python3", "-u", "agent.py"],
+    "working_directory": ".",
+    "environment": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    }
+  },
+  "checks": {
+    "compileall_project_and_results": true,
+    "synthetic_regressions": true,
+    "protocol_smoke": true,
+    "llm_local_http_smoke": true,
+    "required_median_threshold_regression": true,
+    "request_threshold_remains_low_k_regression": true,
+    "required_urgency_curve_regression": true,
+    "best_effort_fallback_regression": true,
+    "search_diagnostics_emitted": true,
+    "request_target_recall_regression": true,
+    "required_target_recall_regression": true,
+    "state_resync_recovery_regression": true,
+    "official_action_and_fiber_validation": true,
+    "standard_library_only": true,
+    "no_pi_or_node_runtime": true,
+    "credential_literal_check": true
+  },
+  "evidence": {
+    "regression_summary": "results/regression_summary.json",
+    "protocol_smoke": "results/protocol_smoke.json",
+    "protocol_trace": "results/protocol_smoke_llm_trace.jsonl",
+    "llm_http_smoke": "results/llm_http_smoke.json",
+    "llm_http_trace": "results/llm_http_smoke_trace.jsonl",
+    "search_summary_trace_event": "search_summary",
+    "best_effort_trace_event": "best_effort_fallback"
+  },
+  "formal_evaluations": 0,
+  "practice_evaluations": 0,
+  "real_model_calls": 0,
+  "truth_files_read": 0,
+  "score_improvement_verified": false,
+  "full_season_verified": false,
+  "limitations": [
+    "Median quality and urgency are planning estimates, not completed observation feedback",
+    "Urgency uses future public geometry/quality opportunities and cannot know future weather",
+    "Best-effort fallback is conditional; its online effect on waits and score is unverified",
+    "Hosted full-season budget, hidden truth and formal score require platform evidence",
+    "Windows official local runner previously failed before valid decisions with WinError 10093"
+  ],
+  "packaging": {
+    "source_root": "project/",
+    "excluded": ["results/", "VALIDATION.json", "IMPLEMENTATION.md", "__pycache__/", ".env"],
+    "repro_command": "python3 project/pack_agent.py --out v6.zip"
+  }
+}
