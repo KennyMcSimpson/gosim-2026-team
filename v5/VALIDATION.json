@@ -1,0 +1,92 @@
+{
+  "version": "v5",
+  "source_version": "v4-official",
+  "date": "2026-10-06",
+  "status": "ENGINEERING_CHECKS_PASSED_SCORE_UNVERIFIED",
+  "artifact": "v5.zip",
+  "artifact_sha256": "e43f400d18f5f5b94b674cd6fe9d608dc279aadc7a2e11f8440733ab257e0c86",
+  "artifact_bytes": 60773,
+  "artifact_files": 20,
+  "source_sha256": {
+    "agent.py": "f9a931630816667cc69faddb49f5008206aeb0bae26c34bca0d6139fbac6b192",
+    "pack_agent.py": "fe21c45424ef65b5ce8c04f5cfce8655e2dbe015786b3d807277ad827d4e2a0a",
+    "observer.project.json": "373d448f4193fbb5364edb347cc99d2468de98db253267e1267c26ac98e6c43b",
+    "requirements.txt": "28c136620c07c2b7a42c43472d6589dcc6074f0ad03a2bf7fd8623fae8494194",
+    "README.md": "739c779b8eed0d9356b1ddabdb6d0081691dc20e40072e9dfc303b4c78ca6b33",
+    "README.zh.md": "41c716c152d07ed3515f43e0e1a3aa1cb0aaccaf4f224fa4b5abb25b920ebdf0",
+    "CHANGELOG.md": "b41d86e30e6c6f770d20940fc981904bb6b90213dd5ea93d13320418f7cda716",
+    "agent_core/__init__.py": "86f2aa3636a25e64fde75376458dbe0fa1efcbee58d18ee5cfc93322ccc45330",
+    "agent_core/advisor.py": "e858b20215a532d39195c72b43fcd66167d98270d67576bd7816553900a3d9df",
+    "agent_core/calendar.py": "794fa036f9570e61a401e1563faeba9ad9da5ab1c8698b4d40499e8f7e7084e3",
+    "agent_core/clock.py": "60734578598daba50e3d1ee38b6536dba4c61a71e0c87b89f7a03f0909d9e454",
+    "agent_core/geometry.py": "50715ad56f148a403b1c86dba61427f0c59efbd589e4aabc3cded53ae59459b0",
+    "agent_core/llm_client.py": "0e38efd223c38d2cc3abb9d19979cb8fe538e84dc54041f5473a45f3d3ee9713",
+    "agent_core/memory.py": "50b85b4a71e0450b54eb9487d40da11fddc8c41199612fba3810ddddf0e8bbfa",
+    "agent_core/planner_search.py": "50f73aac7f7bcf63f6f3ec1584af208ede4d849b246f982fbf4637eb037a2778",
+    "agent_core/planner.py": "e447f51a1d458959a52f83cb32c0caf02aad321b3cf0a43cb7a1f7eaa530ecd0",
+    "agent_core/protocol.py": "470c26cae91e2d40fd629d31d024338e32a2ca645cec669cace2433f7e76edcf",
+    "agent_core/scoring.py": "61ba99f7a074e46a427be2350b47c1daaa5619398bee881b25a5940d02092d78",
+    "agent_core/state.py": "48ffef5248c853675db672df6a74a75248527e118b75493c7766e03d3ff66e2f",
+    "agent_core/validation.py": "688e2b67fda2e16cb80e04005b69808ae2df82d21822edb8385da48a788f017c"
+  },
+  "manifest": {
+    "schema_version": "observer-project-v1",
+    "protocol": "jsonl-v4",
+    "image": "python:3.12-slim",
+    "build": [],
+    "run": ["python3", "-u", "agent.py"],
+    "working_directory": ".",
+    "environment": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    }
+  },
+  "checks": {
+    "compileall_project": true,
+    "synthetic_regressions": true,
+    "protocol_smoke": true,
+    "llm_notice_applied": true,
+    "llm_trace_events_supported": true,
+    "llm_http_smoke": true,
+    "request_shortest_duration_regression": true,
+    "request_target_recall_regression": true,
+    "required_target_recall_regression": true,
+    "state_resync_recovery_regression": true,
+    "official_action_and_fiber_validation": true,
+    "standard_library_only": true,
+    "no_pi_or_node_runtime": true,
+    "credential_literal_check": true,
+    "v4_official_unchanged": true
+  },
+  "evidence": {
+    "regression_summary": "results/regression_summary.json",
+    "protocol_smoke": "results/protocol_smoke.json",
+    "protocol_trace": "results/protocol_smoke_llm_trace.jsonl",
+    "llm_http_smoke": "results/llm_http_smoke.json",
+    "llm_http_trace": "results/llm_http_smoke_trace.jsonl",
+    "local_runner_attempt": "results/local_L1/",
+    "llm_applied_effect": {
+      "role": "notice_interpretation",
+      "state_effect": "extra_avoid",
+      "before": [],
+      "after": ["S"],
+      "decision_consumer": "Planner._direction_factor"
+    }
+  },
+  "formal_evaluations": 0,
+  "practice_evaluations": 0,
+  "real_model_calls": 0,
+  "truth_files_read": 0,
+  "score_improvement_verified": false,
+  "full_season_verified": false,
+  "limitations": [
+    "Windows official local runner failed before a valid decision run with WinError 10093",
+    "Synthetic and protocol checks do not establish a hosted score",
+    "Hosted full-season budget, hidden truth and real-model quality require platform evidence",
+    "Short REQUIRED exposures can increase decision count"
+  ],
+  "packaging": {
+    "source_root": "project/",
+    "excluded": ["results/", "VALIDATION.json", "IMPLEMENTATION.md", "__pycache__/", ".env"],
+    "repro_command": "python3 project/pack_agent.py --out v5.zip"
+  }
+}

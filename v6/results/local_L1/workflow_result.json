@@ -1,0 +1,81 @@
+{
+  "accounted_wallclock_seconds": 0.0,
+  "agent_wallclock_seconds": 0.0,
+  "committed_action_count": 0,
+  "decision_requests": 0,
+  "fair_clock": {
+    "budget_seconds": 60.0,
+    "charged_seconds": 0.0,
+    "cpu_meter": "none",
+    "cpu_seconds": 0.0,
+    "hard_cap_reached": false,
+    "hard_cap_seconds": 120.0,
+    "mode": "cpu",
+    "run_wall_seconds": 0.0,
+    "schema_version": "fair-clock-v1",
+    "speed_factor": 0.9045,
+    "speed_factor_max": 0.9045,
+    "speed_factor_min": 0.9045,
+    "speed_samples": 1,
+    "wait_seconds": 0.0,
+    "window_seconds": 0.0
+  },
+  "global_wallclock_seconds": 60.0,
+  "ignored_in_flight_response": false,
+  "last_decision_sequence": 0,
+  "protocol_version": "participant-agent-protocol-v4",
+  "scenario": "v4-l1",
+  "schema_version": "v4-workflow-result-v1",
+  "score_report": {
+    "by_class": {},
+    "components": {
+      "observation_request_reward": 0,
+      "report_settlement": 0.0,
+      "required_penalty": -19500.0,
+      "sum_best_scores": 0,
+      "uniformity_penalty": -200.0
+    },
+    "counts": {
+      "decisions": 0,
+      "invalidated_observations": 0,
+      "observation_requests_completed": 0,
+      "observation_requests_issued": 0,
+      "observations": 0,
+      "observe_actions": 0,
+      "required_missing": 390,
+      "targets_observed": 0
+    },
+    "invalidations": [],
+    "observation_requests": [],
+    "scenario": "v4-l1",
+    "schema_version": "v4-score-report-v1",
+    "sha256": {
+      "decisions": "ad7e90f41d3aa3b7603504720f8e67ee6948317649ccf1cbfb7997bb23b568cc",
+      "messages": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "observations": "b73414b2c006969ad5d6ff5df23666e573786008ca1f1f7959fc3ac98df99c2f",
+      "scenario": "c8d1a8676e4a283b55bdaa59c40f0ae53396e05a93095e6364573ad536c68c43"
+    },
+    "termination": {
+      "detail": "agent initialization failed",
+      "reason": "agent_error"
+    },
+    "total": -19700.0,
+    "uniformity_bands": {
+      "ra_0_10": 0.0,
+      "ra_100_110": 0.0,
+      "ra_10_20": 0.0,
+      "ra_110_120": 0.0,
+      "ra_20_30": 0.0,
+      "ra_30_40": 0.0,
+      "ra_350_360": 0.0,
+      "ra_40_50": 0.0,
+      "ra_50_60": 0.0,
+      "ra_60_70": 0.0,
+      "ra_70_80": 0.0,
+      "ra_90_100": 0.0
+    }
+  },
+  "speed_factor": 0.9045,
+  "termination_detail": "agent initialization failed",
+  "termination_reason": "agent_error"
+}
