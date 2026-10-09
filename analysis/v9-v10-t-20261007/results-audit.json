@@ -1,0 +1,2591 @@
+{
+  "verified_at_utc": "2026-10-07T12:38:46.668979+00:00",
+  "bundles": {
+    "v9-t.zip": {
+      "source": "v9-t.zip",
+      "archive_sha256": "2efc707055d055fedd9de3e9c4dc8fd6006cb9ca015cdd9c8d39fe48744a1196",
+      "evaluation": {
+        "evaluation_id": "ad9dc337-48d6-402b-9c77-c6b98588669f",
+        "revision_id": "0487dde7-916c-4c2b-adbf-66bb85d0595f",
+        "version": "v9(v8llm repair)",
+        "created_at": "2026-10-07T10:58:40.643321+00:00",
+        "model_provided": true,
+        "model_disabled": false
+      },
+      "cards": {
+        "1-a": {
+          "total": 22916.236982,
+          "components": {
+            "observation_request_reward": 500.0,
+            "report_settlement": 100.0,
+            "required_penalty": -400.0,
+            "sum_best_scores": 22723.954518,
+            "uniformity_penalty": -7.717536
+          },
+          "counts": {
+            "decisions": 5813,
+            "invalidated_observations": 0,
+            "observation_requests_completed": 5,
+            "observation_requests_issued": 6,
+            "observations": 40473,
+            "observe_actions": 3773,
+            "required_missing": 8,
+            "targets_observed": 27797
+          },
+          "termination": {
+            "detail": "",
+            "reason": "survey_complete"
+          },
+          "scenario_sha256": "e865f42235439125b8726d8d9d8e94da65e50b7675ad461a2505d71463a29427",
+          "settlement_matches_workflow": true,
+          "clock": {
+            "charged_seconds": 633.045,
+            "run_wall_seconds": 695.287,
+            "hard_cap_reached": false
+          },
+          "agent_version": null,
+          "model": {
+            "attempts": 126,
+            "success": 118,
+            "failure": 1,
+            "timeout": 1,
+            "retries": 5,
+            "http_statuses": {},
+            "provider_errors": {}
+          },
+          "interface": {
+            "host": "api.kimi.com",
+            "model": "kimi-for-coding",
+            "endpoint": "kimi_coding",
+            "protocol": "chat_completions"
+          },
+          "stage": {
+            "adaptive_forecast": {
+              "attempts": 10,
+              "success": 10,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 108,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "confirm_report": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 1,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "fault_review": {
+              "attempts": 34,
+              "success": 26,
+              "failure": 1,
+              "timeout": 1,
+              "retries": 5,
+              "rejected": 3307,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "night_plan": {
+              "attempts": 74,
+              "success": 74,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 2110,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "operations": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "strategy_proposal": {
+              "attempts": 8,
+              "success": 8,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 366,
+              "total_tokens": null,
+              "usage_responses": null
+            }
+          },
+          "operations": {
+            "notes_discovered": 0,
+            "notes_succeeded": 0,
+            "notes_failed": 0,
+            "note_submissions": 0,
+            "ledger_events": 0,
+            "provider_deferred_segments": 0
+          },
+          "proposal": {
+            "submissions": 8,
+            "stale_replies": 5,
+            "changes": 1,
+            "selections": 3771,
+            "fallbacks": 3764,
+            "transport_errors": 0,
+            "malformed_profiles": 0
+          },
+          "forecast_metrics": {
+            "submissions": 10,
+            "stale_replies": null,
+            "accepted_packets": 10,
+            "transport_errors": 0,
+            "invalid_packets": 0
+          },
+          "weather_groups": [
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 10
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 10
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 10
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 10
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 10
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 10
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 10
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 10
+            }
+          ],
+          "actions": {
+            "fault_review_accepted": 2,
+            "feedback_unknown": 0,
+            "night_plan_accepted": 28,
+            "operation_report_uses": 0,
+            "operation_waits": 0,
+            "rerank_changes": 0,
+            "rerank_fallbacks": 0,
+            "v8_bundle_changes": 1,
+            "v8_bundle_fallbacks": 170,
+            "v8_bundle_selections": 2,
+            "v8_forecast_submissions": 10,
+            "v8_policy_submissions": 8,
+            "v8_proposal_changes": 1,
+            "v8_proposal_fallbacks": 3764
+          },
+          "effect_events": 0,
+          "effect_log_events": 0,
+          "effect_feedback_events": 0,
+          "effect_changed_fields": {},
+          "runtime_fingerprint_present": false
+        },
+        "2-b": {
+          "total": 36158.638091,
+          "components": {
+            "observation_request_reward": 400.0,
+            "report_settlement": 100.0,
+            "required_penalty": -150.0,
+            "sum_best_scores": 35814.720767,
+            "uniformity_penalty": -6.082676
+          },
+          "counts": {
+            "decisions": 11052,
+            "invalidated_observations": 0,
+            "observation_requests_completed": 4,
+            "observation_requests_issued": 6,
+            "observations": 52746,
+            "observe_actions": 7247,
+            "required_missing": 3,
+            "targets_observed": 41394
+          },
+          "termination": {
+            "detail": "",
+            "reason": "survey_complete"
+          },
+          "scenario_sha256": "1d0c411483180fff5a41704a4e028542d899cfd47bf72f4aa37bc592de7012cb",
+          "settlement_matches_workflow": true,
+          "clock": {
+            "charged_seconds": 790.223,
+            "run_wall_seconds": 1645.826,
+            "hard_cap_reached": false
+          },
+          "agent_version": null,
+          "model": {
+            "attempts": 264,
+            "success": 247,
+            "failure": 1,
+            "timeout": 1,
+            "retries": 14,
+            "http_statuses": {},
+            "provider_errors": {}
+          },
+          "interface": {
+            "host": "api.kimi.com",
+            "model": "kimi-for-coding",
+            "endpoint": "kimi_coding",
+            "protocol": "chat_completions"
+          },
+          "stage": {
+            "adaptive_forecast": {
+              "attempts": 23,
+              "success": 23,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 158,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "confirm_report": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 1,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "fault_review": {
+              "attempts": 82,
+              "success": 66,
+              "failure": 1,
+              "timeout": 1,
+              "retries": 13,
+              "rejected": 7092,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "night_plan": {
+              "attempts": 132,
+              "success": 131,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 1,
+              "rejected": 4269,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "operations": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "strategy_proposal": {
+              "attempts": 27,
+              "success": 27,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 770,
+              "total_tokens": null,
+              "usage_responses": null
+            }
+          },
+          "operations": {
+            "notes_discovered": 0,
+            "notes_succeeded": 0,
+            "notes_failed": 0,
+            "note_submissions": 0,
+            "ledger_events": 0,
+            "provider_deferred_segments": 0
+          },
+          "proposal": {
+            "submissions": 27,
+            "stale_replies": 20,
+            "changes": 2,
+            "selections": 7241,
+            "fallbacks": 7165,
+            "transport_errors": 0,
+            "malformed_profiles": 0
+          },
+          "forecast_metrics": {
+            "submissions": 23,
+            "stale_replies": null,
+            "accepted_packets": 23,
+            "transport_errors": 0,
+            "invalid_packets": 0
+          },
+          "weather_groups": [
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 28
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 28
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 28
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 28
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 28
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 28
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 28
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 28
+            }
+          ],
+          "actions": {
+            "fault_review_accepted": 2,
+            "feedback_unknown": 0,
+            "night_plan_accepted": 67,
+            "operation_report_uses": 0,
+            "operation_waits": 0,
+            "rerank_changes": 0,
+            "rerank_fallbacks": 0,
+            "v8_bundle_changes": 1,
+            "v8_bundle_fallbacks": 358,
+            "v8_bundle_selections": 6,
+            "v8_forecast_submissions": 23,
+            "v8_policy_submissions": 27,
+            "v8_proposal_changes": 2,
+            "v8_proposal_fallbacks": 7165
+          },
+          "effect_events": 0,
+          "effect_log_events": 0,
+          "effect_feedback_events": 0,
+          "effect_changed_fields": {},
+          "runtime_fingerprint_present": false
+        },
+        "3-c": {
+          "total": 25206.182495,
+          "components": {
+            "observation_request_reward": 500.0,
+            "report_settlement": 100.0,
+            "required_penalty": -0.0,
+            "sum_best_scores": 24608.507105,
+            "uniformity_penalty": -2.32461
+          },
+          "counts": {
+            "decisions": 7218,
+            "invalidated_observations": 0,
+            "observation_requests_completed": 5,
+            "observation_requests_issued": 6,
+            "observations": 37483,
+            "observe_actions": 4695,
+            "required_missing": 0,
+            "targets_observed": 27546
+          },
+          "termination": {
+            "detail": "",
+            "reason": "survey_complete"
+          },
+          "scenario_sha256": "af450ec5cc2ccf71e4e493d06f4246d383c6acb92fafc6986e9f645323fe72ad",
+          "settlement_matches_workflow": true,
+          "clock": {
+            "charged_seconds": 700.325,
+            "run_wall_seconds": 885.559,
+            "hard_cap_reached": false
+          },
+          "agent_version": null,
+          "model": {
+            "attempts": 159,
+            "success": 151,
+            "failure": 1,
+            "timeout": 1,
+            "retries": 5,
+            "http_statuses": {},
+            "provider_errors": {}
+          },
+          "interface": {
+            "host": "api.kimi.com",
+            "model": "kimi-for-coding",
+            "endpoint": "kimi_coding",
+            "protocol": "chat_completions"
+          },
+          "stage": {
+            "adaptive_forecast": {
+              "attempts": 10,
+              "success": 10,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 112,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "confirm_report": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "fault_review": {
+              "attempts": 50,
+              "success": 42,
+              "failure": 1,
+              "timeout": 1,
+              "retries": 5,
+              "rejected": 4541,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "night_plan": {
+              "attempts": 91,
+              "success": 91,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 2603,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "operations": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "strategy_proposal": {
+              "attempts": 8,
+              "success": 8,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 468,
+              "total_tokens": null,
+              "usage_responses": null
+            }
+          },
+          "operations": {
+            "notes_discovered": 0,
+            "notes_succeeded": 0,
+            "notes_failed": 0,
+            "note_submissions": 0,
+            "ledger_events": 0,
+            "provider_deferred_segments": 0
+          },
+          "proposal": {
+            "submissions": 8,
+            "stale_replies": 6,
+            "changes": 1,
+            "selections": 4689,
+            "fallbacks": 4674,
+            "transport_errors": 0,
+            "malformed_profiles": 0
+          },
+          "forecast_metrics": {
+            "submissions": 10,
+            "stale_replies": null,
+            "accepted_packets": 10,
+            "transport_errors": 0,
+            "invalid_packets": 0
+          },
+          "weather_groups": [
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 11
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 11
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 11
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 11
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 11
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 11
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 11
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 11
+            }
+          ],
+          "actions": {
+            "fault_review_accepted": 1,
+            "feedback_unknown": 0,
+            "night_plan_accepted": 36,
+            "operation_report_uses": 0,
+            "operation_waits": 0,
+            "rerank_changes": 0,
+            "rerank_fallbacks": 0,
+            "v8_bundle_changes": 3,
+            "v8_bundle_fallbacks": 210,
+            "v8_bundle_selections": 6,
+            "v8_forecast_submissions": 10,
+            "v8_policy_submissions": 8,
+            "v8_proposal_changes": 1,
+            "v8_proposal_fallbacks": 4674
+          },
+          "effect_events": 0,
+          "effect_log_events": 0,
+          "effect_feedback_events": 0,
+          "effect_changed_fields": {},
+          "runtime_fingerprint_present": false
+        },
+        "4-d": {
+          "total": 31656.71195,
+          "components": {
+            "observation_request_reward": 400.0,
+            "report_settlement": 50.0,
+            "required_penalty": -100.0,
+            "sum_best_scores": 31306.724859,
+            "uniformity_penalty": -0.012909
+          },
+          "counts": {
+            "decisions": 14256,
+            "invalidated_observations": 1154,
+            "observation_requests_completed": 4,
+            "observation_requests_issued": 6,
+            "observations": 43868,
+            "observe_actions": 5315,
+            "required_missing": 2,
+            "targets_observed": 29967
+          },
+          "termination": {
+            "detail": "",
+            "reason": "survey_complete"
+          },
+          "scenario_sha256": "d75d54fa8c1f1e65d9c8d32ff3d7c456f3d1b8910da9bcdf74cc31590f1505cd",
+          "settlement_matches_workflow": true,
+          "clock": {
+            "charged_seconds": 521.869,
+            "run_wall_seconds": 984.935,
+            "hard_cap_reached": false
+          },
+          "agent_version": null,
+          "model": {
+            "attempts": 192,
+            "success": 183,
+            "failure": 1,
+            "timeout": 1,
+            "retries": 6,
+            "http_statuses": {},
+            "provider_errors": {}
+          },
+          "interface": {
+            "host": "api.kimi.com",
+            "model": "kimi-for-coding",
+            "endpoint": "kimi_coding",
+            "protocol": "chat_completions"
+          },
+          "stage": {
+            "adaptive_forecast": {
+              "attempts": 23,
+              "success": 22,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 270,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "confirm_report": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 1,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "fault_review": {
+              "attempts": 29,
+              "success": 21,
+              "failure": 1,
+              "timeout": 1,
+              "retries": 6,
+              "rejected": 8066,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "night_plan": {
+              "attempts": 125,
+              "success": 125,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 6536,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "operations": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "strategy_proposal": {
+              "attempts": 15,
+              "success": 15,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 708,
+              "total_tokens": null,
+              "usage_responses": null
+            }
+          },
+          "operations": {
+            "notes_discovered": 0,
+            "notes_succeeded": 0,
+            "notes_failed": 0,
+            "note_submissions": 0,
+            "ledger_events": 0,
+            "provider_deferred_segments": 0
+          },
+          "proposal": {
+            "submissions": 15,
+            "stale_replies": 14,
+            "changes": 0,
+            "selections": 5311,
+            "fallbacks": 5301,
+            "transport_errors": 0,
+            "malformed_profiles": 0
+          },
+          "forecast_metrics": {
+            "submissions": 18,
+            "stale_replies": null,
+            "accepted_packets": 17,
+            "transport_errors": 0,
+            "invalid_packets": 0
+          },
+          "weather_groups": [
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 9
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 9
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 9
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 9
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 9
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 9
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 9
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 9
+            }
+          ],
+          "actions": {
+            "fault_review_accepted": 1,
+            "feedback_unknown": 0,
+            "night_plan_accepted": 27,
+            "operation_report_uses": 0,
+            "operation_waits": 0,
+            "rerank_changes": 0,
+            "rerank_fallbacks": 0,
+            "v8_bundle_changes": 2,
+            "v8_bundle_fallbacks": 156,
+            "v8_bundle_selections": 4,
+            "v8_forecast_submissions": 23,
+            "v8_policy_submissions": 15,
+            "v8_proposal_changes": 0,
+            "v8_proposal_fallbacks": 5301
+          },
+          "effect_events": 0,
+          "effect_log_events": 0,
+          "effect_feedback_events": 0,
+          "effect_changed_fields": {},
+          "runtime_fingerprint_present": false
+        },
+        "5-a1-v5": {
+          "total": -38327.724467,
+          "components": {
+            "observation_request_reward": 0.0,
+            "report_settlement": 600.0,
+            "required_penalty": -42150.0,
+            "sum_best_scores": 3254.359544,
+            "uniformity_penalty": -32.084011
+          },
+          "counts": {
+            "decisions": 3254,
+            "invalidated_observations": 0,
+            "observation_requests_completed": 0,
+            "observation_requests_issued": 51,
+            "observations": 17111,
+            "observe_actions": 1211,
+            "required_missing": 843,
+            "targets_observed": 13055
+          },
+          "termination": {
+            "detail": "",
+            "reason": "survey_complete"
+          },
+          "scenario_sha256": "e0b56d25986d2b0f63bdbe3e2796a9f062ac27cf81a366a0ad1e5abbfde3d39b",
+          "settlement_matches_workflow": true,
+          "clock": {
+            "charged_seconds": 427.976,
+            "run_wall_seconds": 769.81,
+            "hard_cap_reached": false
+          },
+          "agent_version": null,
+          "model": {
+            "attempts": 3,
+            "success": 1,
+            "failure": 2,
+            "timeout": 0,
+            "retries": 0,
+            "http_statuses": {
+              "403": 2
+            },
+            "provider_errors": {
+              "quota_5h": 2
+            }
+          },
+          "interface": {
+            "host": "api.kimi.com",
+            "model": "kimi-for-coding",
+            "endpoint": "kimi_coding",
+            "protocol": "chat_completions"
+          },
+          "stage": {
+            "adaptive_forecast": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 124,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "confirm_report": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "fault_review": {
+              "attempts": 1,
+              "success": 0,
+              "failure": 1,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 1187,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "night_plan": {
+              "attempts": 1,
+              "success": 0,
+              "failure": 1,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 1187,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "operations": {
+              "attempts": 1,
+              "success": 1,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "strategy_proposal": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 477,
+              "total_tokens": null,
+              "usage_responses": null
+            }
+          },
+          "operations": {
+            "notes_discovered": 45,
+            "notes_succeeded": 1,
+            "notes_failed": 0,
+            "note_submissions": 1,
+            "ledger_events": 12,
+            "provider_deferred_segments": 0
+          },
+          "proposal": {
+            "submissions": 0,
+            "stale_replies": 0,
+            "changes": 0,
+            "selections": 1211,
+            "fallbacks": 1211,
+            "transport_errors": 0,
+            "malformed_profiles": 0
+          },
+          "forecast_metrics": {
+            "submissions": 0,
+            "stale_replies": null,
+            "accepted_packets": 0,
+            "transport_errors": 0,
+            "invalid_packets": 0
+          },
+          "weather_groups": [],
+          "actions": {
+            "fault_review_accepted": 0,
+            "feedback_unknown": 0,
+            "night_plan_accepted": 0,
+            "operation_report_uses": 1,
+            "operation_waits": 0,
+            "rerank_changes": 0,
+            "rerank_fallbacks": 0,
+            "v8_bundle_changes": 0,
+            "v8_bundle_fallbacks": 714,
+            "v8_bundle_selections": 0,
+            "v8_forecast_submissions": 0,
+            "v8_policy_submissions": 0,
+            "v8_proposal_changes": 0,
+            "v8_proposal_fallbacks": 1211
+          },
+          "effect_events": 0,
+          "effect_log_events": 0,
+          "effect_feedback_events": 0,
+          "effect_changed_fields": {},
+          "runtime_fingerprint_present": false
+        },
+        "6-b1-v5": {
+          "total": -100795.995292,
+          "components": {
+            "observation_request_reward": 0.0,
+            "report_settlement": 100.0,
+            "required_penalty": -104500.0,
+            "sum_best_scores": 3673.537567,
+            "uniformity_penalty": -69.532859
+          },
+          "counts": {
+            "decisions": 6776,
+            "invalidated_observations": 0,
+            "observation_requests_completed": 0,
+            "observation_requests_issued": 63,
+            "observations": 29246,
+            "observe_actions": 2693,
+            "required_missing": 2090,
+            "targets_observed": 18557
+          },
+          "termination": {
+            "detail": "",
+            "reason": "survey_complete"
+          },
+          "scenario_sha256": "ea9ead9985e26608129d8d19e4e3838ea45353da191b1db955ef26b7e395b7f1",
+          "settlement_matches_workflow": true,
+          "clock": {
+            "charged_seconds": 772.211,
+            "run_wall_seconds": 1812.053,
+            "hard_cap_reached": false
+          },
+          "agent_version": null,
+          "model": {
+            "attempts": 12,
+            "success": 8,
+            "failure": 3,
+            "timeout": 0,
+            "retries": 1,
+            "http_statuses": {
+              "403": 3
+            },
+            "provider_errors": {
+              "quota_5h": 3
+            }
+          },
+          "interface": {
+            "host": "api.kimi.com",
+            "model": "kimi-for-coding",
+            "endpoint": "kimi_coding",
+            "protocol": "chat_completions"
+          },
+          "stage": {
+            "adaptive_forecast": {
+              "attempts": 1,
+              "success": 1,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 192,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "confirm_report": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "fault_review": {
+              "attempts": 3,
+              "success": 1,
+              "failure": 1,
+              "timeout": 0,
+              "retries": 1,
+              "rejected": 3967,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "night_plan": {
+              "attempts": 3,
+              "success": 3,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 3955,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "operations": {
+              "attempts": 4,
+              "success": 2,
+              "failure": 2,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "strategy_proposal": {
+              "attempts": 1,
+              "success": 1,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 928,
+              "total_tokens": null,
+              "usage_responses": null
+            }
+          },
+          "operations": {
+            "notes_discovered": 57,
+            "notes_succeeded": 2,
+            "notes_failed": 0,
+            "note_submissions": 4,
+            "ledger_events": 33,
+            "provider_deferred_segments": 2
+          },
+          "proposal": {
+            "submissions": 1,
+            "stale_replies": 1,
+            "changes": 0,
+            "selections": 2693,
+            "fallbacks": 2693,
+            "transport_errors": 0,
+            "malformed_profiles": 0
+          },
+          "forecast_metrics": {
+            "submissions": 1,
+            "stale_replies": null,
+            "accepted_packets": 1,
+            "transport_errors": 0,
+            "invalid_packets": 0
+          },
+          "weather_groups": [
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 1
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 1
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 1
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 1
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 1
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 1
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 1
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 1
+            }
+          ],
+          "actions": {
+            "fault_review_accepted": 1,
+            "feedback_unknown": 0,
+            "night_plan_accepted": 1,
+            "operation_report_uses": 1,
+            "operation_waits": 0,
+            "rerank_changes": 0,
+            "rerank_fallbacks": 0,
+            "v8_bundle_changes": 0,
+            "v8_bundle_fallbacks": 1285,
+            "v8_bundle_selections": 0,
+            "v8_forecast_submissions": 1,
+            "v8_policy_submissions": 1,
+            "v8_proposal_changes": 0,
+            "v8_proposal_fallbacks": 2693
+          },
+          "effect_events": 0,
+          "effect_log_events": 0,
+          "effect_feedback_events": 0,
+          "effect_changed_fields": {},
+          "runtime_fingerprint_present": false
+        },
+        "7-c1-v5": {
+          "total": -49025.294329,
+          "components": {
+            "observation_request_reward": 0.0,
+            "report_settlement": 300.0,
+            "required_penalty": -50900.0,
+            "sum_best_scores": 1586.061568,
+            "uniformity_penalty": -11.355897
+          },
+          "counts": {
+            "decisions": 3795,
+            "invalidated_observations": 0,
+            "observation_requests_completed": 0,
+            "observation_requests_issued": 60,
+            "observations": 10954,
+            "observe_actions": 1231,
+            "required_missing": 1018,
+            "targets_observed": 6935
+          },
+          "termination": {
+            "detail": "",
+            "reason": "survey_complete"
+          },
+          "scenario_sha256": "20b7675ce78914081d28572b104000504440548d649af0e25a134dd165ffdd90",
+          "settlement_matches_workflow": true,
+          "clock": {
+            "charged_seconds": 437.74,
+            "run_wall_seconds": 670.426,
+            "hard_cap_reached": false
+          },
+          "agent_version": null,
+          "model": {
+            "attempts": 3,
+            "success": 1,
+            "failure": 2,
+            "timeout": 0,
+            "retries": 0,
+            "http_statuses": {
+              "403": 2
+            },
+            "provider_errors": {
+              "quota_5h": 2
+            }
+          },
+          "interface": {
+            "host": "api.kimi.com",
+            "model": "kimi-for-coding",
+            "endpoint": "kimi_coding",
+            "protocol": "chat_completions"
+          },
+          "stage": {
+            "adaptive_forecast": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 121,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "confirm_report": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "fault_review": {
+              "attempts": 1,
+              "success": 0,
+              "failure": 1,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 2038,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "night_plan": {
+              "attempts": 1,
+              "success": 0,
+              "failure": 1,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 2038,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "operations": {
+              "attempts": 1,
+              "success": 1,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": null,
+              "usage_responses": null
+            },
+            "strategy_proposal": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 577,
+              "total_tokens": null,
+              "usage_responses": null
+            }
+          },
+          "operations": {
+            "notes_discovered": 54,
+            "notes_succeeded": 1,
+            "notes_failed": 0,
+            "note_submissions": 1,
+            "ledger_events": 18,
+            "provider_deferred_segments": 0
+          },
+          "proposal": {
+            "submissions": 0,
+            "stale_replies": 0,
+            "changes": 0,
+            "selections": 1231,
+            "fallbacks": 1231,
+            "transport_errors": 0,
+            "malformed_profiles": 0
+          },
+          "forecast_metrics": {
+            "submissions": 0,
+            "stale_replies": null,
+            "accepted_packets": 0,
+            "transport_errors": 0,
+            "invalid_packets": 0
+          },
+          "weather_groups": [],
+          "actions": {
+            "fault_review_accepted": 0,
+            "feedback_unknown": 0,
+            "night_plan_accepted": 0,
+            "operation_report_uses": 1,
+            "operation_waits": 0,
+            "rerank_changes": 0,
+            "rerank_fallbacks": 0,
+            "v8_bundle_changes": 0,
+            "v8_bundle_fallbacks": 801,
+            "v8_bundle_selections": 0,
+            "v8_forecast_submissions": 0,
+            "v8_policy_submissions": 0,
+            "v8_proposal_changes": 0,
+            "v8_proposal_fallbacks": 1231
+          },
+          "effect_events": 0,
+          "effect_log_events": 0,
+          "effect_feedback_events": 0,
+          "effect_changed_fields": {},
+          "runtime_fingerprint_present": false
+        }
+      },
+      "summary": {
+        "card_count": 7,
+        "d1_present": false,
+        "http_attempts": 759,
+        "successful_completed_calls": 709,
+        "terminal_failed_calls": 11,
+        "http_statuses": {
+          "403": 7
+        },
+        "provider_errors": {
+          "quota_5h": 7
+        },
+        "ordinary_success": 699,
+        "adverse_success": 10,
+        "a_to_d_mean": 28984.4423795,
+        "a1_to_c1_mean": -62716.33802933333,
+        "model_effect_events": 0
+      }
+    },
+    "v10-t.zip": {
+      "source": "v10-t.zip",
+      "archive_sha256": "b0b533d35a62e6a1fad27c65110eb6a669ffce75f97966ce66b3e89f509844bc",
+      "evaluation": {
+        "evaluation_id": "7d9af762-ec70-4367-be25-096a325f28e5",
+        "revision_id": "4b8ae9c9-34e6-463f-a888-7b7eeb79dd54",
+        "version": "v10",
+        "created_at": "2026-10-07T10:58:43.581351+00:00",
+        "model_provided": true,
+        "model_disabled": false
+      },
+      "cards": {
+        "1-a": {
+          "total": 22910.212205,
+          "components": {
+            "observation_request_reward": 400.0,
+            "report_settlement": 100.0,
+            "required_penalty": -350.0,
+            "sum_best_scores": 22768.510119,
+            "uniformity_penalty": -8.297914
+          },
+          "counts": {
+            "decisions": 5835,
+            "invalidated_observations": 0,
+            "observation_requests_completed": 4,
+            "observation_requests_issued": 6,
+            "observations": 40696,
+            "observe_actions": 3796,
+            "required_missing": 7,
+            "targets_observed": 27678
+          },
+          "termination": {
+            "detail": "",
+            "reason": "survey_complete"
+          },
+          "scenario_sha256": "e865f42235439125b8726d8d9d8e94da65e50b7675ad461a2505d71463a29427",
+          "settlement_matches_workflow": true,
+          "clock": {
+            "charged_seconds": 706.857,
+            "run_wall_seconds": 1474.112,
+            "hard_cap_reached": false
+          },
+          "agent_version": "v10-event-pro",
+          "model": {
+            "attempts": 226,
+            "success": 220,
+            "failure": 0,
+            "timeout": 0,
+            "retries": 5,
+            "http_statuses": {},
+            "provider_errors": {}
+          },
+          "interface": {
+            "host": "api.kimi.com",
+            "model": "kimi-for-coding",
+            "endpoint": "kimi_coding",
+            "protocol": "chat_completions"
+          },
+          "stage": {
+            "adaptive_forecast": {
+              "attempts": 71,
+              "success": 71,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 632,
+              "total_tokens": 133046,
+              "usage_responses": 71
+            },
+            "confirm_report": {
+              "attempts": 2,
+              "success": 2,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 4337,
+              "usage_responses": 2
+            },
+            "fault_review": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "night_plan": {
+              "attempts": 48,
+              "success": 43,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 5,
+              "rejected": 718,
+              "total_tokens": 102901,
+              "usage_responses": 43
+            },
+            "operations": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "strategy_proposal": {
+              "attempts": 105,
+              "success": 104,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 1377,
+              "total_tokens": 100775,
+              "usage_responses": 104
+            }
+          },
+          "operations": {
+            "notes_discovered": 0,
+            "notes_succeeded": 0,
+            "notes_failed": 0,
+            "note_submissions": 0,
+            "ledger_events": 0,
+            "provider_deferred_segments": 0
+          },
+          "proposal": {
+            "submissions": 105,
+            "stale_replies": 76,
+            "changes": 15,
+            "selections": 3794,
+            "fallbacks": 3616,
+            "transport_errors": 0,
+            "malformed_profiles": 0
+          },
+          "forecast_metrics": {
+            "submissions": 71,
+            "stale_replies": 61,
+            "accepted_packets": 10,
+            "transport_errors": 0,
+            "invalid_packets": 0
+          },
+          "weather_groups": [
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 18
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 18
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 18
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 18
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 18
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 18
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 18
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 18
+            }
+          ],
+          "actions": {
+            "fault_review_accepted": 9,
+            "feedback_unknown": 0,
+            "night_plan_accepted": 120,
+            "operation_report_uses": 0,
+            "operation_waits": 0,
+            "rerank_changes": 0,
+            "rerank_fallbacks": 0,
+            "v10_model_action_effects": 15,
+            "v10_optional_deferred": 0,
+            "v10_plan_state_changes": 20,
+            "v8_bundle_changes": 1,
+            "v8_bundle_fallbacks": 224,
+            "v8_bundle_selections": 2,
+            "v8_forecast_submissions": 71,
+            "v8_policy_submissions": 105,
+            "v8_proposal_changes": 15,
+            "v8_proposal_fallbacks": 3616
+          },
+          "effect_events": 15,
+          "effect_log_events": 15,
+          "effect_feedback_events": 15,
+          "effect_changed_fields": {
+            "program": 2,
+            "duration_seconds": 14,
+            "pointing": 3
+          },
+          "runtime_fingerprint_present": false
+        },
+        "2-b": {
+          "total": 36318.007775,
+          "components": {
+            "observation_request_reward": 500.0,
+            "report_settlement": 100.0,
+            "required_penalty": -100.0,
+            "sum_best_scores": 35824.149379,
+            "uniformity_penalty": -6.141605
+          },
+          "counts": {
+            "decisions": 11081,
+            "invalidated_observations": 0,
+            "observation_requests_completed": 5,
+            "observation_requests_issued": 6,
+            "observations": 52761,
+            "observe_actions": 7276,
+            "required_missing": 2,
+            "targets_observed": 41550
+          },
+          "termination": {
+            "detail": "",
+            "reason": "survey_complete"
+          },
+          "scenario_sha256": "1d0c411483180fff5a41704a4e028542d899cfd47bf72f4aa37bc592de7012cb",
+          "settlement_matches_workflow": true,
+          "clock": {
+            "charged_seconds": 783.823,
+            "run_wall_seconds": 883.689,
+            "hard_cap_reached": false
+          },
+          "agent_version": "v10-event-pro",
+          "model": {
+            "attempts": 1,
+            "success": 0,
+            "failure": 1,
+            "timeout": 0,
+            "retries": 0,
+            "http_statuses": {
+              "403": 1
+            },
+            "provider_errors": {
+              "quota_5h": 1
+            }
+          },
+          "interface": {
+            "host": "api.kimi.com",
+            "model": "kimi-for-coding",
+            "endpoint": "kimi_coding",
+            "protocol": "chat_completions"
+          },
+          "stage": {
+            "adaptive_forecast": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 183,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "confirm_report": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "fault_review": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "night_plan": {
+              "attempts": 1,
+              "success": 0,
+              "failure": 1,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 9953,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "operations": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "strategy_proposal": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 8295,
+              "total_tokens": 0,
+              "usage_responses": 0
+            }
+          },
+          "operations": {
+            "notes_discovered": 0,
+            "notes_succeeded": 0,
+            "notes_failed": 0,
+            "note_submissions": 0,
+            "ledger_events": 0,
+            "provider_deferred_segments": 0
+          },
+          "proposal": {
+            "submissions": 0,
+            "stale_replies": 0,
+            "changes": 0,
+            "selections": 7272,
+            "fallbacks": 7272,
+            "transport_errors": 0,
+            "malformed_profiles": 0
+          },
+          "forecast_metrics": {
+            "submissions": 0,
+            "stale_replies": 0,
+            "accepted_packets": 0,
+            "transport_errors": 0,
+            "invalid_packets": 0
+          },
+          "weather_groups": [],
+          "actions": {
+            "fault_review_accepted": 0,
+            "feedback_unknown": 0,
+            "night_plan_accepted": 0,
+            "operation_report_uses": 0,
+            "operation_waits": 0,
+            "rerank_changes": 0,
+            "rerank_fallbacks": 0,
+            "v10_model_action_effects": 0,
+            "v10_optional_deferred": 0,
+            "v10_plan_state_changes": 0,
+            "v8_bundle_changes": 1,
+            "v8_bundle_fallbacks": 306,
+            "v8_bundle_selections": 4,
+            "v8_forecast_submissions": 0,
+            "v8_policy_submissions": 0,
+            "v8_proposal_changes": 0,
+            "v8_proposal_fallbacks": 7272
+          },
+          "effect_events": 0,
+          "effect_log_events": 0,
+          "effect_feedback_events": 0,
+          "effect_changed_fields": {},
+          "runtime_fingerprint_present": false
+        },
+        "3-c": {
+          "total": 25009.341274,
+          "components": {
+            "observation_request_reward": 500.0,
+            "report_settlement": 100.0,
+            "required_penalty": -0.0,
+            "sum_best_scores": 24411.858735,
+            "uniformity_penalty": -2.51746
+          },
+          "counts": {
+            "decisions": 7119,
+            "invalidated_observations": 0,
+            "observation_requests_completed": 5,
+            "observation_requests_issued": 6,
+            "observations": 36818,
+            "observe_actions": 4591,
+            "required_missing": 0,
+            "targets_observed": 27399
+          },
+          "termination": {
+            "detail": "",
+            "reason": "survey_complete"
+          },
+          "scenario_sha256": "af450ec5cc2ccf71e4e493d06f4246d383c6acb92fafc6986e9f645323fe72ad",
+          "settlement_matches_workflow": true,
+          "clock": {
+            "charged_seconds": 729.448,
+            "run_wall_seconds": 1325.302,
+            "hard_cap_reached": false
+          },
+          "agent_version": "v10-event-pro",
+          "model": {
+            "attempts": 174,
+            "success": 165,
+            "failure": 1,
+            "timeout": 1,
+            "retries": 7,
+            "http_statuses": {},
+            "provider_errors": {}
+          },
+          "interface": {
+            "host": "api.kimi.com",
+            "model": "kimi-for-coding",
+            "endpoint": "kimi_coding",
+            "protocol": "chat_completions"
+          },
+          "stage": {
+            "adaptive_forecast": {
+              "attempts": 40,
+              "success": 40,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 1651,
+              "total_tokens": 71397,
+              "usage_responses": 40
+            },
+            "confirm_report": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "fault_review": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "night_plan": {
+              "attempts": 79,
+              "success": 71,
+              "failure": 1,
+              "timeout": 1,
+              "retries": 7,
+              "rejected": 3602,
+              "total_tokens": 170966,
+              "usage_responses": 71
+            },
+            "operations": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "strategy_proposal": {
+              "attempts": 55,
+              "success": 54,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 3631,
+              "total_tokens": 55930,
+              "usage_responses": 54
+            }
+          },
+          "operations": {
+            "notes_discovered": 0,
+            "notes_succeeded": 0,
+            "notes_failed": 0,
+            "note_submissions": 0,
+            "ledger_events": 0,
+            "provider_deferred_segments": 0
+          },
+          "proposal": {
+            "submissions": 55,
+            "stale_replies": 48,
+            "changes": 4,
+            "selections": 4589,
+            "fallbacks": 4503,
+            "transport_errors": 0,
+            "malformed_profiles": 0
+          },
+          "forecast_metrics": {
+            "submissions": 40,
+            "stale_replies": 35,
+            "accepted_packets": 5,
+            "transport_errors": 0,
+            "invalid_packets": 0
+          },
+          "weather_groups": [
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 7
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 7
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 7
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 7
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 7
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 7
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 7
+            },
+            {
+              "trusted": false,
+              "mixture_weight": 0.0,
+              "support": 7
+            }
+          ],
+          "actions": {
+            "fault_review_accepted": 10,
+            "feedback_unknown": 0,
+            "night_plan_accepted": 80,
+            "operation_report_uses": 0,
+            "operation_waits": 0,
+            "rerank_changes": 0,
+            "rerank_fallbacks": 0,
+            "v10_model_action_effects": 4,
+            "v10_optional_deferred": 0,
+            "v10_plan_state_changes": 2,
+            "v8_bundle_changes": 0,
+            "v8_bundle_fallbacks": 168,
+            "v8_bundle_selections": 2,
+            "v8_forecast_submissions": 40,
+            "v8_policy_submissions": 55,
+            "v8_proposal_changes": 4,
+            "v8_proposal_fallbacks": 4503
+          },
+          "effect_events": 4,
+          "effect_log_events": 4,
+          "effect_feedback_events": 4,
+          "effect_changed_fields": {
+            "program": 2,
+            "duration_seconds": 4,
+            "pointing": 2
+          },
+          "runtime_fingerprint_present": false
+        },
+        "4-d": {
+          "total": 31762.632006,
+          "components": {
+            "observation_request_reward": 400.0,
+            "report_settlement": 200.0,
+            "required_penalty": -150.0,
+            "sum_best_scores": 31312.635644,
+            "uniformity_penalty": -0.003638
+          },
+          "counts": {
+            "decisions": 13179,
+            "invalidated_observations": 1122,
+            "observation_requests_completed": 4,
+            "observation_requests_issued": 6,
+            "observations": 44700,
+            "observe_actions": 5501,
+            "required_missing": 3,
+            "targets_observed": 29984
+          },
+          "termination": {
+            "detail": "",
+            "reason": "survey_complete"
+          },
+          "scenario_sha256": "d75d54fa8c1f1e65d9c8d32ff3d7c456f3d1b8910da9bcdf74cc31590f1505cd",
+          "settlement_matches_workflow": true,
+          "clock": {
+            "charged_seconds": 564.319,
+            "run_wall_seconds": 1414.177,
+            "hard_cap_reached": false
+          },
+          "agent_version": "v10-event-pro",
+          "model": {
+            "attempts": 171,
+            "success": 162,
+            "failure": 1,
+            "timeout": 1,
+            "retries": 7,
+            "http_statuses": {},
+            "provider_errors": {}
+          },
+          "interface": {
+            "host": "api.kimi.com",
+            "model": "kimi-for-coding",
+            "endpoint": "kimi_coding",
+            "protocol": "chat_completions"
+          },
+          "stage": {
+            "adaptive_forecast": {
+              "attempts": 31,
+              "success": 31,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 2467,
+              "total_tokens": 49863,
+              "usage_responses": 31
+            },
+            "confirm_report": {
+              "attempts": 2,
+              "success": 1,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 1,
+              "rejected": 0,
+              "total_tokens": 2833,
+              "usage_responses": 1
+            },
+            "fault_review": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "night_plan": {
+              "attempts": 96,
+              "success": 89,
+              "failure": 1,
+              "timeout": 1,
+              "retries": 6,
+              "rejected": 6237,
+              "total_tokens": 212656,
+              "usage_responses": 89
+            },
+            "operations": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "strategy_proposal": {
+              "attempts": 42,
+              "success": 41,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 5163,
+              "total_tokens": 39304,
+              "usage_responses": 41
+            }
+          },
+          "operations": {
+            "notes_discovered": 0,
+            "notes_succeeded": 0,
+            "notes_failed": 0,
+            "note_submissions": 0,
+            "ledger_events": 0,
+            "provider_deferred_segments": 0
+          },
+          "proposal": {
+            "submissions": 42,
+            "stale_replies": 39,
+            "changes": 0,
+            "selections": 5494,
+            "fallbacks": 5492,
+            "transport_errors": 0,
+            "malformed_profiles": 0
+          },
+          "forecast_metrics": {
+            "submissions": 18,
+            "stale_replies": 18,
+            "accepted_packets": 0,
+            "transport_errors": 0,
+            "invalid_packets": 0
+          },
+          "weather_groups": [],
+          "actions": {
+            "fault_review_accepted": 9,
+            "feedback_unknown": 0,
+            "night_plan_accepted": 195,
+            "operation_report_uses": 0,
+            "operation_waits": 0,
+            "rerank_changes": 0,
+            "rerank_fallbacks": 0,
+            "v10_model_action_effects": 0,
+            "v10_optional_deferred": 0,
+            "v10_plan_state_changes": 3,
+            "v8_bundle_changes": 0,
+            "v8_bundle_fallbacks": 147,
+            "v8_bundle_selections": 7,
+            "v8_forecast_submissions": 31,
+            "v8_policy_submissions": 42,
+            "v8_proposal_changes": 0,
+            "v8_proposal_fallbacks": 5492
+          },
+          "effect_events": 0,
+          "effect_log_events": 0,
+          "effect_feedback_events": 0,
+          "effect_changed_fields": {},
+          "runtime_fingerprint_present": false
+        },
+        "5-a1-v5": {
+          "total": -51374.820074,
+          "components": {
+            "observation_request_reward": 0.0,
+            "report_settlement": 200.0,
+            "required_penalty": -53950.0,
+            "sum_best_scores": 2410.016478,
+            "uniformity_penalty": -34.836552
+          },
+          "counts": {
+            "decisions": 3155,
+            "invalidated_observations": 0,
+            "observation_requests_completed": 0,
+            "observation_requests_issued": 51,
+            "observations": 15914,
+            "observe_actions": 1116,
+            "required_missing": 1079,
+            "targets_observed": 12383
+          },
+          "termination": {
+            "detail": "",
+            "reason": "survey_complete"
+          },
+          "scenario_sha256": "e0b56d25986d2b0f63bdbe3e2796a9f062ac27cf81a366a0ad1e5abbfde3d39b",
+          "settlement_matches_workflow": true,
+          "clock": {
+            "charged_seconds": 421.911,
+            "run_wall_seconds": 513.411,
+            "hard_cap_reached": false
+          },
+          "agent_version": "v10-event-pro",
+          "model": {
+            "attempts": 1,
+            "success": 0,
+            "failure": 1,
+            "timeout": 0,
+            "retries": 0,
+            "http_statuses": {
+              "403": 1
+            },
+            "provider_errors": {
+              "quota_5h": 1
+            }
+          },
+          "interface": {
+            "host": "api.kimi.com",
+            "model": "kimi-for-coding",
+            "endpoint": "kimi_coding",
+            "protocol": "chat_completions"
+          },
+          "stage": {
+            "adaptive_forecast": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "confirm_report": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "fault_review": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "night_plan": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "operations": {
+              "attempts": 1,
+              "success": 0,
+              "failure": 1,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "strategy_proposal": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            }
+          },
+          "operations": {
+            "notes_discovered": 45,
+            "notes_succeeded": 0,
+            "notes_failed": 0,
+            "note_submissions": 1,
+            "ledger_events": 0,
+            "provider_deferred_segments": 1
+          },
+          "proposal": {
+            "submissions": 0,
+            "stale_replies": 0,
+            "changes": 0,
+            "selections": 1116,
+            "fallbacks": 1116,
+            "transport_errors": 0,
+            "malformed_profiles": 0
+          },
+          "forecast_metrics": {
+            "submissions": 0,
+            "stale_replies": 0,
+            "accepted_packets": 0,
+            "transport_errors": 0,
+            "invalid_packets": 0
+          },
+          "weather_groups": [],
+          "actions": {
+            "fault_review_accepted": 0,
+            "feedback_unknown": 0,
+            "night_plan_accepted": 0,
+            "operation_report_uses": 0,
+            "operation_waits": 0,
+            "rerank_changes": 0,
+            "rerank_fallbacks": 0,
+            "v10_model_action_effects": 0,
+            "v10_optional_deferred": 1241,
+            "v10_plan_state_changes": 0,
+            "v8_bundle_changes": 0,
+            "v8_bundle_fallbacks": 644,
+            "v8_bundle_selections": 0,
+            "v8_forecast_submissions": 0,
+            "v8_policy_submissions": 0,
+            "v8_proposal_changes": 0,
+            "v8_proposal_fallbacks": 1116
+          },
+          "effect_events": 0,
+          "effect_log_events": 0,
+          "effect_feedback_events": 0,
+          "effect_changed_fields": {},
+          "runtime_fingerprint_present": false
+        },
+        "6-b1-v5": {
+          "total": -96358.513792,
+          "components": {
+            "observation_request_reward": 0.0,
+            "report_settlement": 100.0,
+            "required_penalty": -100400.0,
+            "sum_best_scores": 4035.946844,
+            "uniformity_penalty": -94.460636
+          },
+          "counts": {
+            "decisions": 7017,
+            "invalidated_observations": 0,
+            "observation_requests_completed": 1,
+            "observation_requests_issued": 63,
+            "observations": 31769,
+            "observe_actions": 2939,
+            "required_missing": 2008,
+            "targets_observed": 19164
+          },
+          "termination": {
+            "detail": "",
+            "reason": "survey_complete"
+          },
+          "scenario_sha256": "ea9ead9985e26608129d8d19e4e3838ea45353da191b1db955ef26b7e395b7f1",
+          "settlement_matches_workflow": true,
+          "clock": {
+            "charged_seconds": 590.569,
+            "run_wall_seconds": 832.966,
+            "hard_cap_reached": false
+          },
+          "agent_version": "v10-event-pro",
+          "model": {
+            "attempts": 1,
+            "success": 0,
+            "failure": 1,
+            "timeout": 0,
+            "retries": 0,
+            "http_statuses": {
+              "403": 1
+            },
+            "provider_errors": {
+              "quota_5h": 1
+            }
+          },
+          "interface": {
+            "host": "api.kimi.com",
+            "model": "kimi-for-coding",
+            "endpoint": "kimi_coding",
+            "protocol": "chat_completions"
+          },
+          "stage": {
+            "adaptive_forecast": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "confirm_report": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "fault_review": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "night_plan": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "operations": {
+              "attempts": 1,
+              "success": 0,
+              "failure": 1,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "strategy_proposal": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            }
+          },
+          "operations": {
+            "notes_discovered": 57,
+            "notes_succeeded": 0,
+            "notes_failed": 0,
+            "note_submissions": 1,
+            "ledger_events": 0,
+            "provider_deferred_segments": 1
+          },
+          "proposal": {
+            "submissions": 0,
+            "stale_replies": 0,
+            "changes": 0,
+            "selections": 2939,
+            "fallbacks": 2939,
+            "transport_errors": 0,
+            "malformed_profiles": 0
+          },
+          "forecast_metrics": {
+            "submissions": 0,
+            "stale_replies": 0,
+            "accepted_packets": 0,
+            "transport_errors": 0,
+            "invalid_packets": 0
+          },
+          "weather_groups": [],
+          "actions": {
+            "fault_review_accepted": 0,
+            "feedback_unknown": 0,
+            "night_plan_accepted": 0,
+            "operation_report_uses": 0,
+            "operation_waits": 0,
+            "rerank_changes": 0,
+            "rerank_fallbacks": 0,
+            "v10_model_action_effects": 0,
+            "v10_optional_deferred": 4439,
+            "v10_plan_state_changes": 0,
+            "v8_bundle_changes": 0,
+            "v8_bundle_fallbacks": 1342,
+            "v8_bundle_selections": 0,
+            "v8_forecast_submissions": 0,
+            "v8_policy_submissions": 0,
+            "v8_proposal_changes": 0,
+            "v8_proposal_fallbacks": 2939
+          },
+          "effect_events": 0,
+          "effect_log_events": 0,
+          "effect_feedback_events": 0,
+          "effect_changed_fields": {},
+          "runtime_fingerprint_present": false
+        },
+        "7-c1-v5": {
+          "total": -51158.875864,
+          "components": {
+            "observation_request_reward": 0.0,
+            "report_settlement": 300.0,
+            "required_penalty": -52900.0,
+            "sum_best_scores": 1463.420436,
+            "uniformity_penalty": -22.296299
+          },
+          "counts": {
+            "decisions": 3803,
+            "invalidated_observations": 0,
+            "observation_requests_completed": 0,
+            "observation_requests_issued": 60,
+            "observations": 11106,
+            "observe_actions": 1247,
+            "required_missing": 1058,
+            "targets_observed": 6895
+          },
+          "termination": {
+            "detail": "",
+            "reason": "survey_complete"
+          },
+          "scenario_sha256": "20b7675ce78914081d28572b104000504440548d649af0e25a134dd165ffdd90",
+          "settlement_matches_workflow": true,
+          "clock": {
+            "charged_seconds": 458.768,
+            "run_wall_seconds": 663.537,
+            "hard_cap_reached": false
+          },
+          "agent_version": "v10-event-pro",
+          "model": {
+            "attempts": 1,
+            "success": 0,
+            "failure": 1,
+            "timeout": 0,
+            "retries": 0,
+            "http_statuses": {
+              "403": 1
+            },
+            "provider_errors": {
+              "quota_5h": 1
+            }
+          },
+          "interface": {
+            "host": "api.kimi.com",
+            "model": "kimi-for-coding",
+            "endpoint": "kimi_coding",
+            "protocol": "chat_completions"
+          },
+          "stage": {
+            "adaptive_forecast": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "confirm_report": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "fault_review": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "night_plan": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "operations": {
+              "attempts": 1,
+              "success": 0,
+              "failure": 1,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            },
+            "strategy_proposal": {
+              "attempts": 0,
+              "success": 0,
+              "failure": 0,
+              "timeout": 0,
+              "retries": 0,
+              "rejected": 0,
+              "total_tokens": 0,
+              "usage_responses": 0
+            }
+          },
+          "operations": {
+            "notes_discovered": 54,
+            "notes_succeeded": 0,
+            "notes_failed": 0,
+            "note_submissions": 1,
+            "ledger_events": 0,
+            "provider_deferred_segments": 1
+          },
+          "proposal": {
+            "submissions": 0,
+            "stale_replies": 0,
+            "changes": 0,
+            "selections": 1247,
+            "fallbacks": 1247,
+            "transport_errors": 0,
+            "malformed_profiles": 0
+          },
+          "forecast_metrics": {
+            "submissions": 0,
+            "stale_replies": 0,
+            "accepted_packets": 0,
+            "transport_errors": 0,
+            "invalid_packets": 0
+          },
+          "weather_groups": [],
+          "actions": {
+            "fault_review_accepted": 0,
+            "feedback_unknown": 0,
+            "night_plan_accepted": 0,
+            "operation_report_uses": 0,
+            "operation_waits": 0,
+            "rerank_changes": 0,
+            "rerank_fallbacks": 0,
+            "v10_model_action_effects": 0,
+            "v10_optional_deferred": 2185,
+            "v10_plan_state_changes": 0,
+            "v8_bundle_changes": 0,
+            "v8_bundle_fallbacks": 794,
+            "v8_bundle_selections": 0,
+            "v8_forecast_submissions": 0,
+            "v8_policy_submissions": 0,
+            "v8_proposal_changes": 0,
+            "v8_proposal_fallbacks": 1247
+          },
+          "effect_events": 0,
+          "effect_log_events": 0,
+          "effect_feedback_events": 0,
+          "effect_changed_fields": {},
+          "runtime_fingerprint_present": false
+        }
+      },
+      "summary": {
+        "card_count": 7,
+        "d1_present": false,
+        "http_attempts": 575,
+        "successful_completed_calls": 547,
+        "terminal_failed_calls": 6,
+        "http_statuses": {
+          "403": 4
+        },
+        "provider_errors": {
+          "quota_5h": 4
+        },
+        "ordinary_success": 547,
+        "adverse_success": 0,
+        "a_to_d_mean": 29000.048315,
+        "a1_to_c1_mean": -66297.40324333333,
+        "model_effect_events": 19
+      }
+    }
+  },
+  "boundary": {
+    "archived_results_only": true,
+    "real_model_requests_this_audit": 0,
+    "runtime_source_binding_verified": false,
+    "causal_score_gain_verified": false,
+    "requests_include_retries": true,
+    "success_failure_are_completed_call_counts": true
+  }
+}

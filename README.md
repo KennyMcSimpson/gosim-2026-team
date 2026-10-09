@@ -3,6 +3,13 @@
 This public repository keeps the official GOSIM Agentic Observer examples,
 the team's Python baseline, and candidate strategies for online trials.
 
+## 最新结果分析（2026-10-07）
+
+[v9-t / v10-t 对话检查点、接口与策略利用审计](analysis/v9-v10-t-20261007/README.md)：
+两版分别有 709 / 547 次成功模型响应；部分卡受到五小时额度限制，
+成功回复仍存在大量过期和 REQUIRED 漏观测。包含完整报告、脱敏逐卡数据
+和只读复算脚本；模型动作变化不等于评分收益。该目录为分析归档。
+
 ## 最新候选：v7 merge-pro（2026-10-07）
 
 基于官方 Python Pro，接入公开配置、完整请求奖励、值班 Operations Agent、
@@ -111,5 +118,6 @@ earlier pinned-ZIP extraction helper. PR #2 replaced the committed ZIP with
 extracted files, so use the directory linked above directly. The helper downloads
 the pinned archive when it is missing; `REFETCH=1` also forces a temporary download.
 
-Do not commit API keys, `.env` files, passwords, private submissions, run logs,
-or generated experiment outputs here.
+Do not commit API keys, `.env` files, passwords, private submissions, or raw run
+logs here. Share generated analysis summaries only when Kenny authorizes them
+and credentials, private payloads, and machine-specific paths are removed.
