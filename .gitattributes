@@ -1,4 +1,5 @@
 scripts/*.sh text eol=lf
+training/official-examples/gosim-observer-examples/runner/** -text
 v4-official/project/** -text
 v4-pi/project/** -text
 v2-pi/project/** -text

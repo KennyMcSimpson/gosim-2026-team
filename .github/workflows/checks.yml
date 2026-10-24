@@ -1,0 +1,39 @@
+name: Candidate and frozen-input checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify official runner bytes
+        run: python training/official-examples/gosim-observer-examples/runner/verify_engine.py
+      - name: Verify the published v7 archive matches its source and receipt
+        run: python scripts/verify-v7-archive.py
+      - name: Test v7 contracts and keyless JSONL entrypoint
+        working-directory: v7-merge-pro/project
+        run: python -m unittest discover -s tests -v
+      - name: Test archived Pi repair regressions without a model
+        working-directory: v2-pi-fixed/project
+        run: python -m unittest discover -s tests -v
