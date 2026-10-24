@@ -111,6 +111,24 @@ includes the strategy changes merged in [PR #2](https://github.com/KennyMcSimpso
 Its directory retains the historical `unmodified` name. See
 [baseline provenance](v1(lhl)/README.md) for the earlier official packaging record.
 
+## Continuous checks
+
+GitHub Actions runs the v7 contract tests (including its keyless JSONL entrypoint)
+and the archived Pi repair regressions on Windows and Ubuntu with Python 3.12.
+The optional Pi geometry tests still require separately supplied public cards.
+No real model or scored platform run is started.
+
+Run these frozen-input checks from the repository root:
+
+```sh
+python training/official-examples/gosim-observer-examples/runner/verify_engine.py
+python scripts/verify-v7-archive.py
+```
+
+The v7 checker compares the committed ZIP, its nine runtime files, and
+`verification.json`. Git attributes preserve the official runner's bytes on
+Windows, so checkout line-ending conversion cannot invalidate its hash manifest.
+
 ## Archive helper
 
 [scripts/fetch-official-examples.sh](scripts/fetch-official-examples.sh) is the
